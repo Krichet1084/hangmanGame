@@ -14,6 +14,7 @@ public class main {
      */
     public static void main(String[] args) {
         homeScreen.create();
+        System.out.println("okay");
     }
     
 }
