@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package my.homeScreen;
+import my.game.*;
+import my.scoreMenu.*;
  
 /**
  *
@@ -42,6 +44,11 @@ public class homeScreen extends javax.swing.JFrame {
         guideButton.setText("Guide");
 
         playButon.setText("Play");
+        playButon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                playButonActionPerformed(evt);
+            }
+        });
 
         quitButton.setText("Quit");
         quitButton.addActionListener(new java.awt.event.ActionListener() {
@@ -51,6 +58,11 @@ public class homeScreen extends javax.swing.JFrame {
         });
 
         scoreButton.setText("High Score");
+        scoreButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                scoreButtonActionPerformed(evt);
+            }
+        });
 
         noButton.setText("No");
         noButton.addActionListener(new java.awt.event.ActionListener() {
@@ -149,6 +161,17 @@ public class homeScreen extends javax.swing.JFrame {
         confirmQuit.setVisible(false);
     }//GEN-LAST:event_noButtonActionPerformed
 
+    private void playButonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playButonActionPerformed
+        homeScreen.this.dispose();
+        game hangman = new game();
+        hangman.setVisible(true);
+    }//GEN-LAST:event_playButonActionPerformed
+
+    private void scoreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_scoreButtonActionPerformed
+        scoreMenu score = new scoreMenu();
+        score.setVisible(true);
+    }//GEN-LAST:event_scoreButtonActionPerformed
+
     private void confirmButtonActionPerformed(java.awt.event.ActionEvent evt) {
         System.exit(0);
     }
@@ -178,11 +201,6 @@ public class homeScreen extends javax.swing.JFrame {
         //</editor-fold>
            
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new homeScreen().setVisible(true);            
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
