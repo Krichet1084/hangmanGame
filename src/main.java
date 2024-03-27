@@ -15,6 +15,7 @@ public class main {
     public static void main(String[] args) {
         homeScreen home = new homeScreen();
         home.setVisible(true);
+        home.dispose();
     }
     
 }
