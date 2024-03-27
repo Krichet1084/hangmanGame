@@ -5,6 +5,7 @@
 package my.homeScreen;
 import my.game.*;
 import my.scoreMenu.*;
+import my.howTo.*;
  
 /**
  *
@@ -42,6 +43,11 @@ public class homeScreen extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         guideButton.setText("Guide");
+        guideButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guideButtonActionPerformed(evt);
+            }
+        });
 
         playButon.setText("Play");
         playButon.addActionListener(new java.awt.event.ActionListener() {
@@ -171,6 +177,11 @@ public class homeScreen extends javax.swing.JFrame {
         scoreMenu score = new scoreMenu();
         score.setVisible(true);
     }//GEN-LAST:event_scoreButtonActionPerformed
+
+    private void guideButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guideButtonActionPerformed
+        howTo guide = new howTo();
+        guide.setVisible(true);
+    }//GEN-LAST:event_guideButtonActionPerformed
 
     private void confirmButtonActionPerformed(java.awt.event.ActionEvent evt) {
         System.exit(0);
