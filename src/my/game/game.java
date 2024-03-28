@@ -3,20 +3,29 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package my.game;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.stream.*;
+import java.util.Random;
 
 /**
  *
  * @author kshar1
  */
 public class game extends javax.swing.JFrame {
-
+    
+    private int wordLength;
+    private String word;
     /**
      * Creates new form game
      */
-    public game() {
+    public game(int wL) {
         initComponents();
+        wordLength=wL;
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -65,6 +74,11 @@ public class game extends javax.swing.JFrame {
         });
 
         jToggleButton17.setText("J");
+        jToggleButton17.setToolTipText("");
+        jToggleButton17.setBorder(null);
+        jToggleButton17.setMaximumSize(new java.awt.Dimension(30, 30));
+        jToggleButton17.setMinimumSize(new java.awt.Dimension(30, 30));
+        jToggleButton17.setPreferredSize(new java.awt.Dimension(40, 40));
         jToggleButton17.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton17ActionPerformed(evt);
@@ -72,6 +86,11 @@ public class game extends javax.swing.JFrame {
         });
 
         jToggleButton18.setText("K");
+        jToggleButton18.setToolTipText("");
+        jToggleButton18.setBorder(null);
+        jToggleButton18.setMaximumSize(new java.awt.Dimension(30, 30));
+        jToggleButton18.setMinimumSize(new java.awt.Dimension(30, 30));
+        jToggleButton18.setPreferredSize(new java.awt.Dimension(40, 40));
         jToggleButton18.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton18ActionPerformed(evt);
@@ -79,6 +98,11 @@ public class game extends javax.swing.JFrame {
         });
 
         jToggleButton14.setText("F");
+        jToggleButton14.setToolTipText("");
+        jToggleButton14.setBorder(null);
+        jToggleButton14.setMaximumSize(new java.awt.Dimension(30, 30));
+        jToggleButton14.setMinimumSize(new java.awt.Dimension(30, 30));
+        jToggleButton14.setPreferredSize(new java.awt.Dimension(40, 40));
         jToggleButton14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton14ActionPerformed(evt);
@@ -86,6 +110,11 @@ public class game extends javax.swing.JFrame {
         });
 
         jToggleButton16.setText("H");
+        jToggleButton16.setToolTipText("");
+        jToggleButton16.setBorder(null);
+        jToggleButton16.setMaximumSize(new java.awt.Dimension(30, 30));
+        jToggleButton16.setMinimumSize(new java.awt.Dimension(30, 30));
+        jToggleButton16.setPreferredSize(new java.awt.Dimension(40, 40));
         jToggleButton16.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton16ActionPerformed(evt);
@@ -93,6 +122,11 @@ public class game extends javax.swing.JFrame {
         });
 
         jToggleButton24.setText("B");
+        jToggleButton24.setToolTipText("");
+        jToggleButton24.setBorder(null);
+        jToggleButton24.setMaximumSize(new java.awt.Dimension(30, 30));
+        jToggleButton24.setMinimumSize(new java.awt.Dimension(30, 30));
+        jToggleButton24.setPreferredSize(new java.awt.Dimension(40, 40));
         jToggleButton24.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton24ActionPerformed(evt);
@@ -100,6 +134,11 @@ public class game extends javax.swing.JFrame {
         });
 
         jToggleButton22.setText("C");
+        jToggleButton22.setToolTipText("");
+        jToggleButton22.setBorder(null);
+        jToggleButton22.setMaximumSize(new java.awt.Dimension(30, 30));
+        jToggleButton22.setMinimumSize(new java.awt.Dimension(30, 30));
+        jToggleButton22.setPreferredSize(new java.awt.Dimension(40, 40));
         jToggleButton22.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton22ActionPerformed(evt);
@@ -107,6 +146,11 @@ public class game extends javax.swing.JFrame {
         });
 
         jToggleButton3.setText("R");
+        jToggleButton3.setToolTipText("");
+        jToggleButton3.setBorder(null);
+        jToggleButton3.setMaximumSize(new java.awt.Dimension(30, 30));
+        jToggleButton3.setMinimumSize(new java.awt.Dimension(30, 30));
+        jToggleButton3.setPreferredSize(new java.awt.Dimension(40, 40));
         jToggleButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton3ActionPerformed(evt);
@@ -114,6 +158,11 @@ public class game extends javax.swing.JFrame {
         });
 
         jToggleButton4.setText("E");
+        jToggleButton4.setToolTipText("");
+        jToggleButton4.setBorder(null);
+        jToggleButton4.setMaximumSize(new java.awt.Dimension(30, 30));
+        jToggleButton4.setMinimumSize(new java.awt.Dimension(30, 30));
+        jToggleButton4.setPreferredSize(new java.awt.Dimension(40, 40));
         jToggleButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton4ActionPerformed(evt);
@@ -121,6 +170,11 @@ public class game extends javax.swing.JFrame {
         });
 
         jToggleButton26.setText("M");
+        jToggleButton26.setToolTipText("");
+        jToggleButton26.setBorder(null);
+        jToggleButton26.setMaximumSize(new java.awt.Dimension(30, 30));
+        jToggleButton26.setMinimumSize(new java.awt.Dimension(30, 30));
+        jToggleButton26.setPreferredSize(new java.awt.Dimension(40, 40));
         jToggleButton26.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton26ActionPerformed(evt);
@@ -128,6 +182,11 @@ public class game extends javax.swing.JFrame {
         });
 
         jToggleButton7.setText("U");
+        jToggleButton7.setToolTipText("");
+        jToggleButton7.setBorder(null);
+        jToggleButton7.setMaximumSize(new java.awt.Dimension(30, 30));
+        jToggleButton7.setMinimumSize(new java.awt.Dimension(30, 30));
+        jToggleButton7.setPreferredSize(new java.awt.Dimension(40, 40));
         jToggleButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton7ActionPerformed(evt);
@@ -135,6 +194,11 @@ public class game extends javax.swing.JFrame {
         });
 
         jToggleButton20.setText("Z");
+        jToggleButton20.setToolTipText("");
+        jToggleButton20.setBorder(null);
+        jToggleButton20.setMaximumSize(new java.awt.Dimension(30, 30));
+        jToggleButton20.setMinimumSize(new java.awt.Dimension(30, 30));
+        jToggleButton20.setPreferredSize(new java.awt.Dimension(40, 40));
         jToggleButton20.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton20ActionPerformed(evt);
@@ -142,6 +206,11 @@ public class game extends javax.swing.JFrame {
         });
 
         jToggleButton15.setText("G");
+        jToggleButton15.setToolTipText("");
+        jToggleButton15.setBorder(null);
+        jToggleButton15.setMaximumSize(new java.awt.Dimension(30, 30));
+        jToggleButton15.setMinimumSize(new java.awt.Dimension(30, 30));
+        jToggleButton15.setPreferredSize(new java.awt.Dimension(40, 40));
         jToggleButton15.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton15ActionPerformed(evt);
@@ -149,6 +218,11 @@ public class game extends javax.swing.JFrame {
         });
 
         jToggleButton9.setText("O");
+        jToggleButton9.setToolTipText("");
+        jToggleButton9.setBorder(null);
+        jToggleButton9.setMaximumSize(new java.awt.Dimension(30, 30));
+        jToggleButton9.setMinimumSize(new java.awt.Dimension(30, 30));
+        jToggleButton9.setPreferredSize(new java.awt.Dimension(40, 40));
         jToggleButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton9ActionPerformed(evt);
@@ -156,6 +230,11 @@ public class game extends javax.swing.JFrame {
         });
 
         jToggleButton10.setText("P");
+        jToggleButton10.setToolTipText("");
+        jToggleButton10.setBorder(null);
+        jToggleButton10.setMaximumSize(new java.awt.Dimension(30, 30));
+        jToggleButton10.setMinimumSize(new java.awt.Dimension(30, 30));
+        jToggleButton10.setPreferredSize(new java.awt.Dimension(40, 40));
         jToggleButton10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton10ActionPerformed(evt);
@@ -163,6 +242,11 @@ public class game extends javax.swing.JFrame {
         });
 
         jToggleButton8.setText("I");
+        jToggleButton8.setToolTipText("");
+        jToggleButton8.setBorder(null);
+        jToggleButton8.setMaximumSize(new java.awt.Dimension(30, 30));
+        jToggleButton8.setMinimumSize(new java.awt.Dimension(30, 30));
+        jToggleButton8.setPreferredSize(new java.awt.Dimension(40, 40));
         jToggleButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton8ActionPerformed(evt);
@@ -170,8 +254,18 @@ public class game extends javax.swing.JFrame {
         });
 
         jToggleButton2.setText("Q");
+        jToggleButton2.setToolTipText("");
+        jToggleButton2.setBorder(null);
+        jToggleButton2.setMaximumSize(new java.awt.Dimension(30, 30));
+        jToggleButton2.setMinimumSize(new java.awt.Dimension(30, 30));
+        jToggleButton2.setPreferredSize(new java.awt.Dimension(40, 40));
 
         jToggleButton19.setText("L");
+        jToggleButton19.setToolTipText("");
+        jToggleButton19.setBorder(null);
+        jToggleButton19.setMaximumSize(new java.awt.Dimension(30, 30));
+        jToggleButton19.setMinimumSize(new java.awt.Dimension(30, 30));
+        jToggleButton19.setPreferredSize(new java.awt.Dimension(40, 40));
         jToggleButton19.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton19ActionPerformed(evt);
@@ -179,6 +273,11 @@ public class game extends javax.swing.JFrame {
         });
 
         jToggleButton11.setText("A");
+        jToggleButton11.setToolTipText("");
+        jToggleButton11.setBorder(null);
+        jToggleButton11.setMaximumSize(new java.awt.Dimension(30, 30));
+        jToggleButton11.setMinimumSize(new java.awt.Dimension(30, 30));
+        jToggleButton11.setPreferredSize(new java.awt.Dimension(40, 40));
         jToggleButton11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton11ActionPerformed(evt);
@@ -186,6 +285,11 @@ public class game extends javax.swing.JFrame {
         });
 
         jToggleButton25.setText("N");
+        jToggleButton25.setToolTipText("");
+        jToggleButton25.setBorder(null);
+        jToggleButton25.setMaximumSize(new java.awt.Dimension(30, 30));
+        jToggleButton25.setMinimumSize(new java.awt.Dimension(30, 30));
+        jToggleButton25.setPreferredSize(new java.awt.Dimension(40, 40));
         jToggleButton25.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton25ActionPerformed(evt);
@@ -193,8 +297,18 @@ public class game extends javax.swing.JFrame {
         });
 
         jToggleButton1.setText("W");
+        jToggleButton1.setToolTipText("");
+        jToggleButton1.setBorder(null);
+        jToggleButton1.setMaximumSize(new java.awt.Dimension(30, 30));
+        jToggleButton1.setMinimumSize(new java.awt.Dimension(30, 30));
+        jToggleButton1.setPreferredSize(new java.awt.Dimension(40, 40));
 
         jToggleButton13.setText("D");
+        jToggleButton13.setToolTipText("");
+        jToggleButton13.setBorder(null);
+        jToggleButton13.setMaximumSize(new java.awt.Dimension(30, 30));
+        jToggleButton13.setMinimumSize(new java.awt.Dimension(30, 30));
+        jToggleButton13.setPreferredSize(new java.awt.Dimension(40, 40));
         jToggleButton13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton13ActionPerformed(evt);
@@ -202,6 +316,11 @@ public class game extends javax.swing.JFrame {
         });
 
         jToggleButton21.setText("X");
+        jToggleButton21.setToolTipText("");
+        jToggleButton21.setBorder(null);
+        jToggleButton21.setMaximumSize(new java.awt.Dimension(30, 30));
+        jToggleButton21.setMinimumSize(new java.awt.Dimension(30, 30));
+        jToggleButton21.setPreferredSize(new java.awt.Dimension(40, 40));
         jToggleButton21.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton21ActionPerformed(evt);
@@ -209,6 +328,11 @@ public class game extends javax.swing.JFrame {
         });
 
         jToggleButton5.setText("T");
+        jToggleButton5.setToolTipText("");
+        jToggleButton5.setBorder(null);
+        jToggleButton5.setMaximumSize(new java.awt.Dimension(30, 30));
+        jToggleButton5.setMinimumSize(new java.awt.Dimension(30, 30));
+        jToggleButton5.setPreferredSize(new java.awt.Dimension(40, 40));
         jToggleButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton5ActionPerformed(evt);
@@ -216,6 +340,11 @@ public class game extends javax.swing.JFrame {
         });
 
         jToggleButton6.setText("Y");
+        jToggleButton6.setToolTipText("");
+        jToggleButton6.setBorder(null);
+        jToggleButton6.setMaximumSize(new java.awt.Dimension(30, 30));
+        jToggleButton6.setMinimumSize(new java.awt.Dimension(30, 30));
+        jToggleButton6.setPreferredSize(new java.awt.Dimension(40, 40));
         jToggleButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton6ActionPerformed(evt);
@@ -223,6 +352,11 @@ public class game extends javax.swing.JFrame {
         });
 
         jToggleButton23.setText("V");
+        jToggleButton23.setToolTipText("");
+        jToggleButton23.setBorder(null);
+        jToggleButton23.setMaximumSize(new java.awt.Dimension(30, 30));
+        jToggleButton23.setMinimumSize(new java.awt.Dimension(30, 30));
+        jToggleButton23.setPreferredSize(new java.awt.Dimension(40, 40));
         jToggleButton23.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton23ActionPerformed(evt);
@@ -230,6 +364,11 @@ public class game extends javax.swing.JFrame {
         });
 
         jToggleButton12.setText("S");
+        jToggleButton12.setToolTipText("");
+        jToggleButton12.setBorder(null);
+        jToggleButton12.setMaximumSize(new java.awt.Dimension(30, 30));
+        jToggleButton12.setMinimumSize(new java.awt.Dimension(30, 30));
+        jToggleButton12.setPreferredSize(new java.awt.Dimension(40, 40));
         jToggleButton12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton12ActionPerformed(evt);
@@ -267,101 +406,101 @@ public class game extends javax.swing.JFrame {
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jToggleButton20, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jToggleButton21, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jToggleButton22, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jToggleButton23, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jToggleButton24, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jToggleButton25, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jToggleButton26, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(100, 100, 100))
+            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                .addGap(6, 6, 6)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jToggleButton20, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton21, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton22, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton23, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton24, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton25, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton26, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(88, 88, 88))
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(jToggleButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jToggleButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jToggleButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jToggleButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jToggleButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jToggleButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jToggleButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton17, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jToggleButton17, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton18, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jToggleButton18, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton19, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jToggleButton19, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addComponent(jToggleButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jToggleButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jToggleButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jToggleButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jToggleButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jToggleButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jToggleButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jToggleButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jToggleButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jToggleButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(15, 15, 15))
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jToggleButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton17, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton18, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton19, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jToggleButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton17, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton18, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton19, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jToggleButton20, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton21, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton22, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton23, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton24, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton25, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton26, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jToggleButton20, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton21, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton22, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton23, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton24, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton25, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton26, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -370,9 +509,9 @@ public class game extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(59, Short.MAX_VALUE)
+                .addContainerGap(64, Short.MAX_VALUE)
                 .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55)
+                .addGap(50, 50, 50)
                 .addComponent(back)
                 .addGap(21, 21, 21))
         );
@@ -380,9 +519,9 @@ public class game extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(206, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(back, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jDesktopPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(back))
                 .addGap(16, 16, 16))
         );
 
@@ -517,6 +656,20 @@ public class game extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
+    }
+    
+    public void wordSelect(){
+        Random rand = new Random();
+        while(word.length()!=wordLength){
+            try (Stream<String> lines = Files.lines(Paths.get("wordList.txt"))) {
+                word = lines.skip(rand.nextInt(235970)).findFirst().get();
+                System.out.println(word);
+            }
+            catch(IOException e){
+                System.out.println(e);
+            }
+        }
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

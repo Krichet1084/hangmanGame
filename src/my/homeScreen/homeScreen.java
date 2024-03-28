@@ -169,8 +169,9 @@ public class homeScreen extends javax.swing.JFrame {
 
     private void playButonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playButonActionPerformed
         homeScreen.this.dispose();
-        game hangman = new game();
+        game hangman = new game(10);
         hangman.setVisible(true);
+        hangman.wordSelect();
     }//GEN-LAST:event_playButonActionPerformed
 
     private void scoreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_scoreButtonActionPerformed
