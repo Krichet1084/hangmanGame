@@ -124,6 +124,7 @@ public class game extends javax.swing.JFrame {
         homeButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         back.setText("Play Again");
         back.addActionListener(new java.awt.event.ActionListener() {
@@ -909,9 +910,9 @@ public class game extends javax.swing.JFrame {
 
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
         submit.setEnabled(false);
-        String newLine= usernameInput.getText()+" "+String.valueOf(guessCount)+" "+String.valueOf(mistakeCount)+" "+String.valueOf(guessCount-mistakeCount)+" "+String.valueOf(wordLength);
+        String newLine= usernameInput.getText().replace(" ", "_")+" "+String.valueOf(guessCount)+" "+String.valueOf(mistakeCount)+" "+String.valueOf(guessCount-mistakeCount)+" "+String.valueOf(wordLength);
         try{
-            FileWriter myWriter = new FileWriter("src/my/scoreMenu/leaderboard.txt", true);
+            FileWriter myWriter = new FileWriter("files/leaderboard.txt", true);
             myWriter.write("\n"+newLine);
             myWriter.close();
         }
@@ -954,7 +955,7 @@ public class game extends javax.swing.JFrame {
     public void wordSelect(){
         Random rand = new Random();
         do{
-            try (Stream<String> lines = Files.lines(Paths.get("src/my/game/wordList.txt"))) {
+            try (Stream<String> lines = Files.lines(Paths.get("files/wordList.txt"))) {
                 word = (lines.skip(rand.nextInt(235970)).findFirst().get()).toLowerCase();
             }
             catch(IOException e){

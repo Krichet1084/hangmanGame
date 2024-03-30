@@ -47,6 +47,7 @@ public class scoreMenu extends javax.swing.JFrame {
         scoreBoard = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         homeButton.setText("Home");
         homeButton.addActionListener(new java.awt.event.ActionListener() {
@@ -65,7 +66,7 @@ public class scoreMenu extends javax.swing.JFrame {
         scoreBoard.setModel(new javax.swing.table.DefaultTableModel(
             info,
             new String [] {
-                "Usernames", "Mistakes", "Guesses", "Unique Letters", "Total Letters"
+                "Usernames", "Guesses", "Mistakes", "Unique Letters", "Total Letters"
             }
         ) {
             Class[] types = new Class [] {
@@ -118,7 +119,7 @@ public class scoreMenu extends javax.swing.JFrame {
 
     private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
         try{
-            FileWriter myWriter = new FileWriter("src/my/scoreMenu/leaderboard.txt", false);
+            FileWriter myWriter = new FileWriter("files/leaderboard.txt", false);
             myWriter.write("");
             myWriter.close();
         }
@@ -132,7 +133,7 @@ public class scoreMenu extends javax.swing.JFrame {
         int numOfLines =0;
         BufferedReader reader;
         try {
-            reader = new BufferedReader(new FileReader("src/my/scoreMenu/leaderboard.txt"));
+            reader = new BufferedReader(new FileReader("files/leaderboard.txt"));
             while(reader.readLine() != null)
             numOfLines++;
         } catch (FileNotFoundException e) {
@@ -143,7 +144,7 @@ public class scoreMenu extends javax.swing.JFrame {
         if(numOfLines!=0){
             info = new String[numOfLines-1][5];
             for(int x=0; x<numOfLines; x++){
-                try (Stream<String> lines = Files.lines(Paths.get("src/my/scoreMenu/leaderboard.txt"))) {
+                try (Stream<String> lines = Files.lines(Paths.get("files/leaderboard.txt"))) {
                     entry=lines.skip(x).findFirst().get();
                     if(x!=0){
                         info[x-1]=entry.split(" ");
