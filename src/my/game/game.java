@@ -3,12 +3,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package my.game;
+import my.setup.*;
+import my.homeScreen.*;
+import static java.awt.Color.red;
+import static java.awt.Color.green;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.stream.*;
 import java.util.Random;
+import javax.swing.JTextField;
+import javax.swing.JToggleButton;
 
 /**
  *
@@ -18,12 +29,34 @@ public class game extends javax.swing.JFrame {
     
     private int wordLength;
     private String word;
+    private String[] wordToGuess;
+    private JTextField[] letters = new JTextField[15];
+    private int mistakeCount;
+    private JToggleButton[] letterButtons = new JToggleButton[26];
+    private String[] alphabet={"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"};
+    private int correctLetters;
+    private int guessCount=0;
     /**
      * Creates new form game
      */
     public game(int wL) {
         initComponents();
         wordLength=wL;
+        JToggleButton[] letterButtons01={aButton, bButton, cButton, dButton, eButton, fButton, gButton,
+                                            hButton, iButton, jButton, kButton, lButton, mButton, nButton,
+                                            oButton, pButton, qButton, rButton, sButton, tButton, uButton,
+                                            vButton, wButton, xButton, yButton, zButton};
+        JTextField[] letters01={letter1, letter2, letter3, letter4, letter5, letter6, letter7, letter8, 
+                                letter9, letter10, letter11, letter12, letter13, letter14, letter15};
+        for(int x=0; x<=14;x++)
+            letters[x]=letters01[x];
+        
+        for(int x=0; x<=25;x++)
+            letterButtons[x]=letterButtons01[x];
+        endScreen.setVisible(false);
+        gameEnd.setVisible(false);
+        wordSelect();
+        wordArray();
     }
     
     /**
@@ -37,370 +70,406 @@ public class game extends javax.swing.JFrame {
 
         back = new javax.swing.JButton();
         jDesktopPane1 = new javax.swing.JDesktopPane();
-        jToggleButton17 = new javax.swing.JToggleButton();
-        jToggleButton18 = new javax.swing.JToggleButton();
-        jToggleButton14 = new javax.swing.JToggleButton();
-        jToggleButton16 = new javax.swing.JToggleButton();
-        jToggleButton24 = new javax.swing.JToggleButton();
-        jToggleButton22 = new javax.swing.JToggleButton();
-        jToggleButton3 = new javax.swing.JToggleButton();
-        jToggleButton4 = new javax.swing.JToggleButton();
-        jToggleButton26 = new javax.swing.JToggleButton();
-        jToggleButton7 = new javax.swing.JToggleButton();
-        jToggleButton20 = new javax.swing.JToggleButton();
-        jToggleButton15 = new javax.swing.JToggleButton();
-        jToggleButton9 = new javax.swing.JToggleButton();
-        jToggleButton10 = new javax.swing.JToggleButton();
-        jToggleButton8 = new javax.swing.JToggleButton();
-        jToggleButton2 = new javax.swing.JToggleButton();
-        jToggleButton19 = new javax.swing.JToggleButton();
-        jToggleButton11 = new javax.swing.JToggleButton();
-        jToggleButton25 = new javax.swing.JToggleButton();
-        jToggleButton1 = new javax.swing.JToggleButton();
-        jToggleButton13 = new javax.swing.JToggleButton();
-        jToggleButton21 = new javax.swing.JToggleButton();
-        jToggleButton5 = new javax.swing.JToggleButton();
-        jToggleButton6 = new javax.swing.JToggleButton();
-        jToggleButton23 = new javax.swing.JToggleButton();
-        jToggleButton12 = new javax.swing.JToggleButton();
+        jButton = new javax.swing.JToggleButton();
+        kButton = new javax.swing.JToggleButton();
+        fButton = new javax.swing.JToggleButton();
+        hButton = new javax.swing.JToggleButton();
+        bButton = new javax.swing.JToggleButton();
+        cButton = new javax.swing.JToggleButton();
+        rButton = new javax.swing.JToggleButton();
+        eButton = new javax.swing.JToggleButton();
+        mButton = new javax.swing.JToggleButton();
+        uButton = new javax.swing.JToggleButton();
+        zButton = new javax.swing.JToggleButton();
+        gButton = new javax.swing.JToggleButton();
+        oButton = new javax.swing.JToggleButton();
+        pButton = new javax.swing.JToggleButton();
+        iButton = new javax.swing.JToggleButton();
+        qButton = new javax.swing.JToggleButton();
+        lButton = new javax.swing.JToggleButton();
+        aButton = new javax.swing.JToggleButton();
+        nButton = new javax.swing.JToggleButton();
+        wButton = new javax.swing.JToggleButton();
+        dButton = new javax.swing.JToggleButton();
+        xButton = new javax.swing.JToggleButton();
+        tButton = new javax.swing.JToggleButton();
+        yButton = new javax.swing.JToggleButton();
+        vButton = new javax.swing.JToggleButton();
+        sButton = new javax.swing.JToggleButton();
+        letter1 = new javax.swing.JTextField();
+        letter2 = new javax.swing.JTextField();
+        letter3 = new javax.swing.JTextField();
+        letter4 = new javax.swing.JTextField();
+        letter5 = new javax.swing.JTextField();
+        letter6 = new javax.swing.JTextField();
+        letter7 = new javax.swing.JTextField();
+        letter8 = new javax.swing.JTextField();
+        letter9 = new javax.swing.JTextField();
+        letter10 = new javax.swing.JTextField();
+        letter11 = new javax.swing.JTextField();
+        letter12 = new javax.swing.JTextField();
+        letter13 = new javax.swing.JTextField();
+        letter14 = new javax.swing.JTextField();
+        letter15 = new javax.swing.JTextField();
+        mistakeCounter = new javax.swing.JLabel();
+        gameEnd = new javax.swing.JPanel();
+        leaderboard = new javax.swing.JLabel();
+        username = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        usernameInput = new javax.swing.JTextPane();
+        submit = new javax.swing.JButton();
+        endScreen = new javax.swing.JPanel();
+        endText = new javax.swing.JLabel();
+        stats = new javax.swing.JTextArea();
+        homeButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        back.setText("Back");
+        back.setText("Play Again");
         back.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backActionPerformed(evt);
             }
         });
 
-        jToggleButton17.setText("J");
-        jToggleButton17.setToolTipText("");
-        jToggleButton17.setBorder(null);
-        jToggleButton17.setMaximumSize(new java.awt.Dimension(30, 30));
-        jToggleButton17.setMinimumSize(new java.awt.Dimension(30, 30));
-        jToggleButton17.setPreferredSize(new java.awt.Dimension(40, 40));
-        jToggleButton17.addActionListener(new java.awt.event.ActionListener() {
+        jButton.setText("J");
+        jButton.setToolTipText("");
+        jButton.setBorder(null);
+        jButton.setMaximumSize(new java.awt.Dimension(30, 30));
+        jButton.setMinimumSize(new java.awt.Dimension(30, 30));
+        jButton.setPreferredSize(new java.awt.Dimension(40, 40));
+        jButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton17ActionPerformed(evt);
+                jButtonActionPerformed(evt);
             }
         });
 
-        jToggleButton18.setText("K");
-        jToggleButton18.setToolTipText("");
-        jToggleButton18.setBorder(null);
-        jToggleButton18.setMaximumSize(new java.awt.Dimension(30, 30));
-        jToggleButton18.setMinimumSize(new java.awt.Dimension(30, 30));
-        jToggleButton18.setPreferredSize(new java.awt.Dimension(40, 40));
-        jToggleButton18.addActionListener(new java.awt.event.ActionListener() {
+        kButton.setText("K");
+        kButton.setToolTipText("");
+        kButton.setBorder(null);
+        kButton.setMaximumSize(new java.awt.Dimension(30, 30));
+        kButton.setMinimumSize(new java.awt.Dimension(30, 30));
+        kButton.setPreferredSize(new java.awt.Dimension(40, 40));
+        kButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton18ActionPerformed(evt);
+                kButtonActionPerformed(evt);
             }
         });
 
-        jToggleButton14.setText("F");
-        jToggleButton14.setToolTipText("");
-        jToggleButton14.setBorder(null);
-        jToggleButton14.setMaximumSize(new java.awt.Dimension(30, 30));
-        jToggleButton14.setMinimumSize(new java.awt.Dimension(30, 30));
-        jToggleButton14.setPreferredSize(new java.awt.Dimension(40, 40));
-        jToggleButton14.addActionListener(new java.awt.event.ActionListener() {
+        fButton.setText("F");
+        fButton.setToolTipText("");
+        fButton.setBorder(null);
+        fButton.setMaximumSize(new java.awt.Dimension(30, 30));
+        fButton.setMinimumSize(new java.awt.Dimension(30, 30));
+        fButton.setPreferredSize(new java.awt.Dimension(40, 40));
+        fButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton14ActionPerformed(evt);
+                fButtonActionPerformed(evt);
             }
         });
 
-        jToggleButton16.setText("H");
-        jToggleButton16.setToolTipText("");
-        jToggleButton16.setBorder(null);
-        jToggleButton16.setMaximumSize(new java.awt.Dimension(30, 30));
-        jToggleButton16.setMinimumSize(new java.awt.Dimension(30, 30));
-        jToggleButton16.setPreferredSize(new java.awt.Dimension(40, 40));
-        jToggleButton16.addActionListener(new java.awt.event.ActionListener() {
+        hButton.setText("H");
+        hButton.setToolTipText("");
+        hButton.setBorder(null);
+        hButton.setMaximumSize(new java.awt.Dimension(30, 30));
+        hButton.setMinimumSize(new java.awt.Dimension(30, 30));
+        hButton.setPreferredSize(new java.awt.Dimension(40, 40));
+        hButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton16ActionPerformed(evt);
+                hButtonActionPerformed(evt);
             }
         });
 
-        jToggleButton24.setText("B");
-        jToggleButton24.setToolTipText("");
-        jToggleButton24.setBorder(null);
-        jToggleButton24.setMaximumSize(new java.awt.Dimension(30, 30));
-        jToggleButton24.setMinimumSize(new java.awt.Dimension(30, 30));
-        jToggleButton24.setPreferredSize(new java.awt.Dimension(40, 40));
-        jToggleButton24.addActionListener(new java.awt.event.ActionListener() {
+        bButton.setText("B");
+        bButton.setToolTipText("");
+        bButton.setBorder(null);
+        bButton.setMaximumSize(new java.awt.Dimension(30, 30));
+        bButton.setMinimumSize(new java.awt.Dimension(30, 30));
+        bButton.setPreferredSize(new java.awt.Dimension(40, 40));
+        bButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton24ActionPerformed(evt);
+                bButtonActionPerformed(evt);
             }
         });
 
-        jToggleButton22.setText("C");
-        jToggleButton22.setToolTipText("");
-        jToggleButton22.setBorder(null);
-        jToggleButton22.setMaximumSize(new java.awt.Dimension(30, 30));
-        jToggleButton22.setMinimumSize(new java.awt.Dimension(30, 30));
-        jToggleButton22.setPreferredSize(new java.awt.Dimension(40, 40));
-        jToggleButton22.addActionListener(new java.awt.event.ActionListener() {
+        cButton.setText("C");
+        cButton.setToolTipText("");
+        cButton.setBorder(null);
+        cButton.setMaximumSize(new java.awt.Dimension(30, 30));
+        cButton.setMinimumSize(new java.awt.Dimension(30, 30));
+        cButton.setPreferredSize(new java.awt.Dimension(40, 40));
+        cButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton22ActionPerformed(evt);
+                cButtonActionPerformed(evt);
             }
         });
 
-        jToggleButton3.setText("R");
-        jToggleButton3.setToolTipText("");
-        jToggleButton3.setBorder(null);
-        jToggleButton3.setMaximumSize(new java.awt.Dimension(30, 30));
-        jToggleButton3.setMinimumSize(new java.awt.Dimension(30, 30));
-        jToggleButton3.setPreferredSize(new java.awt.Dimension(40, 40));
-        jToggleButton3.addActionListener(new java.awt.event.ActionListener() {
+        rButton.setText("R");
+        rButton.setToolTipText("");
+        rButton.setBorder(null);
+        rButton.setMaximumSize(new java.awt.Dimension(30, 30));
+        rButton.setMinimumSize(new java.awt.Dimension(30, 30));
+        rButton.setPreferredSize(new java.awt.Dimension(40, 40));
+        rButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton3ActionPerformed(evt);
+                rButtonActionPerformed(evt);
             }
         });
 
-        jToggleButton4.setText("E");
-        jToggleButton4.setToolTipText("");
-        jToggleButton4.setBorder(null);
-        jToggleButton4.setMaximumSize(new java.awt.Dimension(30, 30));
-        jToggleButton4.setMinimumSize(new java.awt.Dimension(30, 30));
-        jToggleButton4.setPreferredSize(new java.awt.Dimension(40, 40));
-        jToggleButton4.addActionListener(new java.awt.event.ActionListener() {
+        eButton.setText("E");
+        eButton.setToolTipText("");
+        eButton.setBorder(null);
+        eButton.setMaximumSize(new java.awt.Dimension(30, 30));
+        eButton.setMinimumSize(new java.awt.Dimension(30, 30));
+        eButton.setPreferredSize(new java.awt.Dimension(40, 40));
+        eButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton4ActionPerformed(evt);
+                eButtonActionPerformed(evt);
             }
         });
 
-        jToggleButton26.setText("M");
-        jToggleButton26.setToolTipText("");
-        jToggleButton26.setBorder(null);
-        jToggleButton26.setMaximumSize(new java.awt.Dimension(30, 30));
-        jToggleButton26.setMinimumSize(new java.awt.Dimension(30, 30));
-        jToggleButton26.setPreferredSize(new java.awt.Dimension(40, 40));
-        jToggleButton26.addActionListener(new java.awt.event.ActionListener() {
+        mButton.setText("M");
+        mButton.setToolTipText("");
+        mButton.setBorder(null);
+        mButton.setMaximumSize(new java.awt.Dimension(30, 30));
+        mButton.setMinimumSize(new java.awt.Dimension(30, 30));
+        mButton.setPreferredSize(new java.awt.Dimension(40, 40));
+        mButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton26ActionPerformed(evt);
+                mButtonActionPerformed(evt);
             }
         });
 
-        jToggleButton7.setText("U");
-        jToggleButton7.setToolTipText("");
-        jToggleButton7.setBorder(null);
-        jToggleButton7.setMaximumSize(new java.awt.Dimension(30, 30));
-        jToggleButton7.setMinimumSize(new java.awt.Dimension(30, 30));
-        jToggleButton7.setPreferredSize(new java.awt.Dimension(40, 40));
-        jToggleButton7.addActionListener(new java.awt.event.ActionListener() {
+        uButton.setText("U");
+        uButton.setToolTipText("");
+        uButton.setBorder(null);
+        uButton.setMaximumSize(new java.awt.Dimension(30, 30));
+        uButton.setMinimumSize(new java.awt.Dimension(30, 30));
+        uButton.setPreferredSize(new java.awt.Dimension(40, 40));
+        uButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton7ActionPerformed(evt);
+                uButtonActionPerformed(evt);
             }
         });
 
-        jToggleButton20.setText("Z");
-        jToggleButton20.setToolTipText("");
-        jToggleButton20.setBorder(null);
-        jToggleButton20.setMaximumSize(new java.awt.Dimension(30, 30));
-        jToggleButton20.setMinimumSize(new java.awt.Dimension(30, 30));
-        jToggleButton20.setPreferredSize(new java.awt.Dimension(40, 40));
-        jToggleButton20.addActionListener(new java.awt.event.ActionListener() {
+        zButton.setText("Z");
+        zButton.setToolTipText("");
+        zButton.setBorder(null);
+        zButton.setMaximumSize(new java.awt.Dimension(30, 30));
+        zButton.setMinimumSize(new java.awt.Dimension(30, 30));
+        zButton.setPreferredSize(new java.awt.Dimension(40, 40));
+        zButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton20ActionPerformed(evt);
+                zButtonActionPerformed(evt);
             }
         });
 
-        jToggleButton15.setText("G");
-        jToggleButton15.setToolTipText("");
-        jToggleButton15.setBorder(null);
-        jToggleButton15.setMaximumSize(new java.awt.Dimension(30, 30));
-        jToggleButton15.setMinimumSize(new java.awt.Dimension(30, 30));
-        jToggleButton15.setPreferredSize(new java.awt.Dimension(40, 40));
-        jToggleButton15.addActionListener(new java.awt.event.ActionListener() {
+        gButton.setText("G");
+        gButton.setToolTipText("");
+        gButton.setBorder(null);
+        gButton.setMaximumSize(new java.awt.Dimension(30, 30));
+        gButton.setMinimumSize(new java.awt.Dimension(30, 30));
+        gButton.setPreferredSize(new java.awt.Dimension(40, 40));
+        gButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton15ActionPerformed(evt);
+                gButtonActionPerformed(evt);
             }
         });
 
-        jToggleButton9.setText("O");
-        jToggleButton9.setToolTipText("");
-        jToggleButton9.setBorder(null);
-        jToggleButton9.setMaximumSize(new java.awt.Dimension(30, 30));
-        jToggleButton9.setMinimumSize(new java.awt.Dimension(30, 30));
-        jToggleButton9.setPreferredSize(new java.awt.Dimension(40, 40));
-        jToggleButton9.addActionListener(new java.awt.event.ActionListener() {
+        oButton.setText("O");
+        oButton.setToolTipText("");
+        oButton.setBorder(null);
+        oButton.setMaximumSize(new java.awt.Dimension(30, 30));
+        oButton.setMinimumSize(new java.awt.Dimension(30, 30));
+        oButton.setPreferredSize(new java.awt.Dimension(40, 40));
+        oButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton9ActionPerformed(evt);
+                oButtonActionPerformed(evt);
             }
         });
 
-        jToggleButton10.setText("P");
-        jToggleButton10.setToolTipText("");
-        jToggleButton10.setBorder(null);
-        jToggleButton10.setMaximumSize(new java.awt.Dimension(30, 30));
-        jToggleButton10.setMinimumSize(new java.awt.Dimension(30, 30));
-        jToggleButton10.setPreferredSize(new java.awt.Dimension(40, 40));
-        jToggleButton10.addActionListener(new java.awt.event.ActionListener() {
+        pButton.setText("P");
+        pButton.setToolTipText("");
+        pButton.setBorder(null);
+        pButton.setMaximumSize(new java.awt.Dimension(30, 30));
+        pButton.setMinimumSize(new java.awt.Dimension(30, 30));
+        pButton.setPreferredSize(new java.awt.Dimension(40, 40));
+        pButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton10ActionPerformed(evt);
+                pButtonActionPerformed(evt);
             }
         });
 
-        jToggleButton8.setText("I");
-        jToggleButton8.setToolTipText("");
-        jToggleButton8.setBorder(null);
-        jToggleButton8.setMaximumSize(new java.awt.Dimension(30, 30));
-        jToggleButton8.setMinimumSize(new java.awt.Dimension(30, 30));
-        jToggleButton8.setPreferredSize(new java.awt.Dimension(40, 40));
-        jToggleButton8.addActionListener(new java.awt.event.ActionListener() {
+        iButton.setText("I");
+        iButton.setToolTipText("");
+        iButton.setBorder(null);
+        iButton.setMaximumSize(new java.awt.Dimension(30, 30));
+        iButton.setMinimumSize(new java.awt.Dimension(30, 30));
+        iButton.setPreferredSize(new java.awt.Dimension(40, 40));
+        iButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton8ActionPerformed(evt);
+                iButtonActionPerformed(evt);
             }
         });
 
-        jToggleButton2.setText("Q");
-        jToggleButton2.setToolTipText("");
-        jToggleButton2.setBorder(null);
-        jToggleButton2.setMaximumSize(new java.awt.Dimension(30, 30));
-        jToggleButton2.setMinimumSize(new java.awt.Dimension(30, 30));
-        jToggleButton2.setPreferredSize(new java.awt.Dimension(40, 40));
-
-        jToggleButton19.setText("L");
-        jToggleButton19.setToolTipText("");
-        jToggleButton19.setBorder(null);
-        jToggleButton19.setMaximumSize(new java.awt.Dimension(30, 30));
-        jToggleButton19.setMinimumSize(new java.awt.Dimension(30, 30));
-        jToggleButton19.setPreferredSize(new java.awt.Dimension(40, 40));
-        jToggleButton19.addActionListener(new java.awt.event.ActionListener() {
+        qButton.setText("Q");
+        qButton.setToolTipText("");
+        qButton.setBorder(null);
+        qButton.setMaximumSize(new java.awt.Dimension(30, 30));
+        qButton.setMinimumSize(new java.awt.Dimension(30, 30));
+        qButton.setPreferredSize(new java.awt.Dimension(40, 40));
+        qButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton19ActionPerformed(evt);
+                qButtonActionPerformed(evt);
             }
         });
 
-        jToggleButton11.setText("A");
-        jToggleButton11.setToolTipText("");
-        jToggleButton11.setBorder(null);
-        jToggleButton11.setMaximumSize(new java.awt.Dimension(30, 30));
-        jToggleButton11.setMinimumSize(new java.awt.Dimension(30, 30));
-        jToggleButton11.setPreferredSize(new java.awt.Dimension(40, 40));
-        jToggleButton11.addActionListener(new java.awt.event.ActionListener() {
+        lButton.setText("L");
+        lButton.setToolTipText("");
+        lButton.setBorder(null);
+        lButton.setMaximumSize(new java.awt.Dimension(30, 30));
+        lButton.setMinimumSize(new java.awt.Dimension(30, 30));
+        lButton.setPreferredSize(new java.awt.Dimension(40, 40));
+        lButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton11ActionPerformed(evt);
+                lButtonActionPerformed(evt);
             }
         });
 
-        jToggleButton25.setText("N");
-        jToggleButton25.setToolTipText("");
-        jToggleButton25.setBorder(null);
-        jToggleButton25.setMaximumSize(new java.awt.Dimension(30, 30));
-        jToggleButton25.setMinimumSize(new java.awt.Dimension(30, 30));
-        jToggleButton25.setPreferredSize(new java.awt.Dimension(40, 40));
-        jToggleButton25.addActionListener(new java.awt.event.ActionListener() {
+        aButton.setText("A");
+        aButton.setToolTipText("");
+        aButton.setBorder(null);
+        aButton.setMaximumSize(new java.awt.Dimension(30, 30));
+        aButton.setMinimumSize(new java.awt.Dimension(30, 30));
+        aButton.setPreferredSize(new java.awt.Dimension(40, 40));
+        aButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton25ActionPerformed(evt);
+                aButtonActionPerformed(evt);
             }
         });
 
-        jToggleButton1.setText("W");
-        jToggleButton1.setToolTipText("");
-        jToggleButton1.setBorder(null);
-        jToggleButton1.setMaximumSize(new java.awt.Dimension(30, 30));
-        jToggleButton1.setMinimumSize(new java.awt.Dimension(30, 30));
-        jToggleButton1.setPreferredSize(new java.awt.Dimension(40, 40));
-
-        jToggleButton13.setText("D");
-        jToggleButton13.setToolTipText("");
-        jToggleButton13.setBorder(null);
-        jToggleButton13.setMaximumSize(new java.awt.Dimension(30, 30));
-        jToggleButton13.setMinimumSize(new java.awt.Dimension(30, 30));
-        jToggleButton13.setPreferredSize(new java.awt.Dimension(40, 40));
-        jToggleButton13.addActionListener(new java.awt.event.ActionListener() {
+        nButton.setText("N");
+        nButton.setToolTipText("");
+        nButton.setBorder(null);
+        nButton.setMaximumSize(new java.awt.Dimension(30, 30));
+        nButton.setMinimumSize(new java.awt.Dimension(30, 30));
+        nButton.setPreferredSize(new java.awt.Dimension(40, 40));
+        nButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton13ActionPerformed(evt);
+                nButtonActionPerformed(evt);
             }
         });
 
-        jToggleButton21.setText("X");
-        jToggleButton21.setToolTipText("");
-        jToggleButton21.setBorder(null);
-        jToggleButton21.setMaximumSize(new java.awt.Dimension(30, 30));
-        jToggleButton21.setMinimumSize(new java.awt.Dimension(30, 30));
-        jToggleButton21.setPreferredSize(new java.awt.Dimension(40, 40));
-        jToggleButton21.addActionListener(new java.awt.event.ActionListener() {
+        wButton.setText("W");
+        wButton.setToolTipText("");
+        wButton.setBorder(null);
+        wButton.setMaximumSize(new java.awt.Dimension(30, 30));
+        wButton.setMinimumSize(new java.awt.Dimension(30, 30));
+        wButton.setPreferredSize(new java.awt.Dimension(40, 40));
+        wButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton21ActionPerformed(evt);
+                wButtonActionPerformed(evt);
             }
         });
 
-        jToggleButton5.setText("T");
-        jToggleButton5.setToolTipText("");
-        jToggleButton5.setBorder(null);
-        jToggleButton5.setMaximumSize(new java.awt.Dimension(30, 30));
-        jToggleButton5.setMinimumSize(new java.awt.Dimension(30, 30));
-        jToggleButton5.setPreferredSize(new java.awt.Dimension(40, 40));
-        jToggleButton5.addActionListener(new java.awt.event.ActionListener() {
+        dButton.setText("D");
+        dButton.setToolTipText("");
+        dButton.setBorder(null);
+        dButton.setMaximumSize(new java.awt.Dimension(30, 30));
+        dButton.setMinimumSize(new java.awt.Dimension(30, 30));
+        dButton.setPreferredSize(new java.awt.Dimension(40, 40));
+        dButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton5ActionPerformed(evt);
+                dButtonActionPerformed(evt);
             }
         });
 
-        jToggleButton6.setText("Y");
-        jToggleButton6.setToolTipText("");
-        jToggleButton6.setBorder(null);
-        jToggleButton6.setMaximumSize(new java.awt.Dimension(30, 30));
-        jToggleButton6.setMinimumSize(new java.awt.Dimension(30, 30));
-        jToggleButton6.setPreferredSize(new java.awt.Dimension(40, 40));
-        jToggleButton6.addActionListener(new java.awt.event.ActionListener() {
+        xButton.setText("X");
+        xButton.setToolTipText("");
+        xButton.setBorder(null);
+        xButton.setMaximumSize(new java.awt.Dimension(30, 30));
+        xButton.setMinimumSize(new java.awt.Dimension(30, 30));
+        xButton.setPreferredSize(new java.awt.Dimension(40, 40));
+        xButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton6ActionPerformed(evt);
+                xButtonActionPerformed(evt);
             }
         });
 
-        jToggleButton23.setText("V");
-        jToggleButton23.setToolTipText("");
-        jToggleButton23.setBorder(null);
-        jToggleButton23.setMaximumSize(new java.awt.Dimension(30, 30));
-        jToggleButton23.setMinimumSize(new java.awt.Dimension(30, 30));
-        jToggleButton23.setPreferredSize(new java.awt.Dimension(40, 40));
-        jToggleButton23.addActionListener(new java.awt.event.ActionListener() {
+        tButton.setText("T");
+        tButton.setToolTipText("");
+        tButton.setBorder(null);
+        tButton.setMaximumSize(new java.awt.Dimension(30, 30));
+        tButton.setMinimumSize(new java.awt.Dimension(30, 30));
+        tButton.setPreferredSize(new java.awt.Dimension(40, 40));
+        tButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton23ActionPerformed(evt);
+                tButtonActionPerformed(evt);
             }
         });
 
-        jToggleButton12.setText("S");
-        jToggleButton12.setToolTipText("");
-        jToggleButton12.setBorder(null);
-        jToggleButton12.setMaximumSize(new java.awt.Dimension(30, 30));
-        jToggleButton12.setMinimumSize(new java.awt.Dimension(30, 30));
-        jToggleButton12.setPreferredSize(new java.awt.Dimension(40, 40));
-        jToggleButton12.addActionListener(new java.awt.event.ActionListener() {
+        yButton.setText("Y");
+        yButton.setToolTipText("");
+        yButton.setBorder(null);
+        yButton.setMaximumSize(new java.awt.Dimension(30, 30));
+        yButton.setMinimumSize(new java.awt.Dimension(30, 30));
+        yButton.setPreferredSize(new java.awt.Dimension(40, 40));
+        yButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton12ActionPerformed(evt);
+                yButtonActionPerformed(evt);
             }
         });
 
-        jDesktopPane1.setLayer(jToggleButton17, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jToggleButton18, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jToggleButton14, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jToggleButton16, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jToggleButton24, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jToggleButton22, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jToggleButton3, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jToggleButton4, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jToggleButton26, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jToggleButton7, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jToggleButton20, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jToggleButton15, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jToggleButton9, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jToggleButton10, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jToggleButton8, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jToggleButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jToggleButton19, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jToggleButton11, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jToggleButton25, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jToggleButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jToggleButton13, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jToggleButton21, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jToggleButton5, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jToggleButton6, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jToggleButton23, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jToggleButton12, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        vButton.setText("V");
+        vButton.setToolTipText("");
+        vButton.setBorder(null);
+        vButton.setMaximumSize(new java.awt.Dimension(30, 30));
+        vButton.setMinimumSize(new java.awt.Dimension(30, 30));
+        vButton.setPreferredSize(new java.awt.Dimension(40, 40));
+        vButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vButtonActionPerformed(evt);
+            }
+        });
+
+        sButton.setText("S");
+        sButton.setToolTipText("");
+        sButton.setBorder(null);
+        sButton.setMaximumSize(new java.awt.Dimension(30, 30));
+        sButton.setMinimumSize(new java.awt.Dimension(30, 30));
+        sButton.setPreferredSize(new java.awt.Dimension(40, 40));
+        sButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sButtonActionPerformed(evt);
+            }
+        });
+
+        jDesktopPane1.setLayer(jButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(kButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(fButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(hButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(bButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(cButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(rButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(eButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(mButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(uButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(zButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(gButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(oButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(pButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(iButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(qButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(lButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(aButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(nButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(wButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(dButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(xButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(tButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(yButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(vButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(sButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -408,62 +477,62 @@ public class game extends javax.swing.JFrame {
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jToggleButton20, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(zButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jToggleButton21, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(xButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jToggleButton22, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jToggleButton23, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(vButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jToggleButton24, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(bButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jToggleButton25, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(nButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jToggleButton26, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(mButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(100, 100, 100))
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
                 .addGap(6, 6, 6)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(jToggleButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(aButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(sButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(dButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(fButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(gButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(hButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton17, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton18, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(kButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton19, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addComponent(jToggleButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(qButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(wButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(eButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(rButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(yButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(uButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(iButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(oButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(pButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(15, 15, 15))
         );
         jDesktopPane1Layout.setVerticalGroup(
@@ -471,57 +540,251 @@ public class game extends javax.swing.JFrame {
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(wButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(eButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(qButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(yButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(uButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(iButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(oButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jToggleButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton17, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton18, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton19, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(aButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(sButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(gButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(hButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(kButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jToggleButton20, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton21, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton22, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton23, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton24, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton25, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton26, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(zButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(xButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(vButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(mButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
+
+        letter1.setEditable(false);
+
+        letter2.setEditable(false);
+
+        letter3.setEditable(false);
+
+        letter4.setEditable(false);
+
+        letter5.setEditable(false);
+
+        letter6.setEditable(false);
+
+        letter7.setEditable(false);
+
+        letter8.setEditable(false);
+
+        letter9.setEditable(false);
+
+        letter10.setEditable(false);
+
+        letter11.setEditable(false);
+
+        letter12.setEditable(false);
+
+        letter13.setEditable(false);
+
+        letter14.setEditable(false);
+
+        letter15.setEditable(false);
+
+        mistakeCounter.setText("Mistakes: 0");
+
+        leaderboard.setText("Leaderboard");
+
+        username.setText("Username: ");
+
+        jScrollPane2.setViewportView(usernameInput);
+
+        submit.setText("Submit");
+        submit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout gameEndLayout = new javax.swing.GroupLayout(gameEnd);
+        gameEnd.setLayout(gameEndLayout);
+        gameEndLayout.setHorizontalGroup(
+            gameEndLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(gameEndLayout.createSequentialGroup()
+                .addGroup(gameEndLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(gameEndLayout.createSequentialGroup()
+                        .addGap(55, 55, 55)
+                        .addComponent(leaderboard))
+                    .addGroup(gameEndLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(username)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(gameEndLayout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(submit)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        gameEndLayout.setVerticalGroup(
+            gameEndLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, gameEndLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(leaderboard)
+                .addGap(18, 18, 18)
+                .addGroup(gameEndLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(username)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(submit)
+                .addGap(71, 71, 71))
+        );
+
+        endText.setText("jLabel1");
+
+        stats.setColumns(20);
+        stats.setRows(5);
+        stats.setOpaque(false);
+        stats.setPreferredSize(new java.awt.Dimension(175, 84));
+
+        javax.swing.GroupLayout endScreenLayout = new javax.swing.GroupLayout(endScreen);
+        endScreen.setLayout(endScreenLayout);
+        endScreenLayout.setHorizontalGroup(
+            endScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(endScreenLayout.createSequentialGroup()
+                .addGap(57, 57, 57)
+                .addComponent(endText)
+                .addContainerGap(85, Short.MAX_VALUE))
+            .addGroup(endScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, endScreenLayout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(stats, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+        endScreenLayout.setVerticalGroup(
+            endScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(endScreenLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(endText)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(endScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, endScreenLayout.createSequentialGroup()
+                    .addContainerGap(38, Short.MAX_VALUE)
+                    .addComponent(stats, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(39, Short.MAX_VALUE)))
+        );
+
+        homeButton.setText("Home");
+        homeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                homeButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(64, Short.MAX_VALUE)
-                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
-                .addComponent(back)
-                .addGap(21, 21, 21))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(mistakeCounter)
+                .addGap(387, 387, 387)
+                .addComponent(gameEnd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(55, 55, 55)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(letter1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(letter2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(letter3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(letter4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(letter5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(letter6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(letter7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(letter8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(letter9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(letter10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(letter11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(endScreen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(letter12, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(letter13, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(back)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(letter14, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(letter15, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(homeButton))
+                .addGap(12, 12, 12))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(206, Short.MAX_VALUE)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(mistakeCounter)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(endScreen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(gameEnd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(letter3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(letter4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(letter5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(letter6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(letter7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(letter8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(letter9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(letter10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(letter11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(letter12, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(letter13, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(letter14, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(letter15, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(letter1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(letter2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(back))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(homeButton, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(back)))
                 .addGap(16, 16, 16))
         );
 
@@ -530,103 +793,133 @@ public class game extends javax.swing.JFrame {
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         game.this.dispose();
+        setup config = new setup();
+        config.setVisible(true);
     }//GEN-LAST:event_backActionPerformed
 
-    private void jToggleButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton3ActionPerformed
+    private void rButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButtonActionPerformed
+        validLetter("r");
+    }//GEN-LAST:event_rButtonActionPerformed
 
-    private void jToggleButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton4ActionPerformed
+    private void eButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eButtonActionPerformed
+        validLetter("e");
+    }//GEN-LAST:event_eButtonActionPerformed
 
-    private void jToggleButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton5ActionPerformed
+    private void tButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tButtonActionPerformed
+        validLetter("t");
+    }//GEN-LAST:event_tButtonActionPerformed
 
-    private void jToggleButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton6ActionPerformed
+    private void yButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yButtonActionPerformed
+        validLetter("y");
+    }//GEN-LAST:event_yButtonActionPerformed
 
-    private void jToggleButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton7ActionPerformed
+    private void uButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uButtonActionPerformed
+        validLetter("u");
+    }//GEN-LAST:event_uButtonActionPerformed
 
-    private void jToggleButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton8ActionPerformed
+    private void iButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iButtonActionPerformed
+        validLetter("i");
+    }//GEN-LAST:event_iButtonActionPerformed
 
-    private void jToggleButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton9ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton9ActionPerformed
+    private void oButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oButtonActionPerformed
+        validLetter("o");
+    }//GEN-LAST:event_oButtonActionPerformed
 
-    private void jToggleButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton10ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton10ActionPerformed
+    private void pButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pButtonActionPerformed
+        validLetter("p");
+    }//GEN-LAST:event_pButtonActionPerformed
 
-    private void jToggleButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton11ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton11ActionPerformed
+    private void aButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aButtonActionPerformed
+        validLetter("a");
+    }//GEN-LAST:event_aButtonActionPerformed
 
-    private void jToggleButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton12ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton12ActionPerformed
+    private void sButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sButtonActionPerformed
+       validLetter("s");
+    }//GEN-LAST:event_sButtonActionPerformed
 
-    private void jToggleButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton13ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton13ActionPerformed
+    private void dButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dButtonActionPerformed
+        validLetter("d");
+    }//GEN-LAST:event_dButtonActionPerformed
 
-    private void jToggleButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton14ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton14ActionPerformed
+    private void fButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fButtonActionPerformed
+        validLetter("f");
+    }//GEN-LAST:event_fButtonActionPerformed
 
-    private void jToggleButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton15ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton15ActionPerformed
+    private void gButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gButtonActionPerformed
+        validLetter("g");
+    }//GEN-LAST:event_gButtonActionPerformed
 
-    private void jToggleButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton16ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton16ActionPerformed
+    private void hButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hButtonActionPerformed
+        validLetter("h");
+    }//GEN-LAST:event_hButtonActionPerformed
 
-    private void jToggleButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton17ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton17ActionPerformed
+    private void jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActionPerformed
+        validLetter("j");
+    }//GEN-LAST:event_jButtonActionPerformed
 
-    private void jToggleButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton18ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton18ActionPerformed
+    private void kButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kButtonActionPerformed
+       validLetter("k");
+    }//GEN-LAST:event_kButtonActionPerformed
 
-    private void jToggleButton19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton19ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton19ActionPerformed
+    private void lButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lButtonActionPerformed
+        validLetter("l");
+    }//GEN-LAST:event_lButtonActionPerformed
 
-    private void jToggleButton20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton20ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton20ActionPerformed
+    private void zButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zButtonActionPerformed
+        validLetter("z");
+    }//GEN-LAST:event_zButtonActionPerformed
 
-    private void jToggleButton21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton21ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton21ActionPerformed
+    private void xButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xButtonActionPerformed
+        validLetter("x");
+    }//GEN-LAST:event_xButtonActionPerformed
 
-    private void jToggleButton22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton22ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton22ActionPerformed
+    private void cButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cButtonActionPerformed
+        validLetter("c");
+    }//GEN-LAST:event_cButtonActionPerformed
 
-    private void jToggleButton23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton23ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton23ActionPerformed
+    private void vButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vButtonActionPerformed
+        validLetter("v");
+    }//GEN-LAST:event_vButtonActionPerformed
 
-    private void jToggleButton24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton24ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton24ActionPerformed
+    private void bButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bButtonActionPerformed
+        validLetter("b");
+    }//GEN-LAST:event_bButtonActionPerformed
 
-    private void jToggleButton25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton25ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton25ActionPerformed
+    private void nButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nButtonActionPerformed
+        validLetter("n");
+    }//GEN-LAST:event_nButtonActionPerformed
 
-    private void jToggleButton26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton26ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton26ActionPerformed
+    private void mButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mButtonActionPerformed
+        validLetter("m");
+    }//GEN-LAST:event_mButtonActionPerformed
+
+    private void qButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_qButtonActionPerformed
+        validLetter("q");
+    }//GEN-LAST:event_qButtonActionPerformed
+
+    private void wButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wButtonActionPerformed
+        validLetter("w");
+    }//GEN-LAST:event_wButtonActionPerformed
+
+    private void homeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeButtonActionPerformed
+        game.this.dispose();
+        homeScreen home = new homeScreen();
+        home.setVisible(true);
+    }//GEN-LAST:event_homeButtonActionPerformed
+
+    private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
+        submit.setEnabled(false);
+        String newLine= usernameInput.getText()+" "+String.valueOf(guessCount)+" "+String.valueOf(mistakeCount)+" "+String.valueOf(guessCount-mistakeCount)+" "+String.valueOf(wordLength);
+        try{
+            FileWriter myWriter = new FileWriter("src/my/scoreMenu/leaderboard.txt", true);
+            myWriter.write("\n"+newLine);
+            myWriter.close();
+        }
+        catch(IOException e){
+            System.out.println(e);
+        }
+        
+    }//GEN-LAST:event_submitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -660,46 +953,130 @@ public class game extends javax.swing.JFrame {
     
     public void wordSelect(){
         Random rand = new Random();
-        while(word.length()!=wordLength){
-            try (Stream<String> lines = Files.lines(Paths.get("wordList.txt"))) {
-                word = lines.skip(rand.nextInt(235970)).findFirst().get();
-                System.out.println(word);
+        do{
+            try (Stream<String> lines = Files.lines(Paths.get("src/my/game/wordList.txt"))) {
+                word = (lines.skip(rand.nextInt(235970)).findFirst().get()).toLowerCase();
             }
             catch(IOException e){
                 System.out.println(e);
+                break;
             }
-        }
+        }while(word.length()!=wordLength);
+        System.out.println("Word to guess is: "+word);
         
     }
+    
+    public void letterSetup(){
+        for(int x=14; x>=wordLength; x--){
+            letters[x].setVisible(false);
+        }
+    }
+    
+    public void wordArray(){
+        wordToGuess = word.split("");
+    }
 
+    public void validLetter(String guess){
+        guessCount++;
+        int letter =0;
+        boolean correct=false;
+        for(int x=0; x<=25; x++){
+            if(alphabet[x].equals(guess)){
+                letter=x;
+            }
+        }
+        for(int x=0; x<wordLength; x++){
+            if(wordToGuess[x].equals(guess)){
+                correctLetters++;
+                letters[x].setText(guess);
+                letterButtons[letter].setBackground(green);
+                correct=true;
+            }
+        }
+        letterButtons[letter].setEnabled(false);
+        if(correct){
+            if(correctLetters==wordLength)
+                wonGame(true);
+            return;
+        }
+        letterButtons[letter].setBackground(red);
+        mistakeCount++;
+        mistakeCounter.setText("Mistakes: "+mistakeCount);
+        if(mistakeCount==(wordLength+5))
+            wonGame(false);
+        
+    }
+    
+    public void wonGame(boolean win){
+        for(int x=0; x<=25; x++){
+            letterButtons[x].setEnabled(false);
+        }
+        if(win){
+            endText.setText("YOU WON!!");
+            stats.setText("You solved a "+wordLength+" letter long\nword with "+mistakeCount+" mistakes!");
+        }
+        else{
+            endText.setText("YOU LOST!!");
+            stats.setText("You failed a "+wordLength+" letter long\nword with "+correctLetters+" letter correct\nand "+mistakeCount+" mistakes");
+        }
+        endScreen.setVisible(true);
+        gameEnd.setVisible(true);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton aButton;
+    private javax.swing.JToggleButton bButton;
     private javax.swing.JButton back;
+    private javax.swing.JToggleButton cButton;
+    private javax.swing.JToggleButton dButton;
+    private javax.swing.JToggleButton eButton;
+    private javax.swing.JPanel endScreen;
+    private javax.swing.JLabel endText;
+    private javax.swing.JToggleButton fButton;
+    private javax.swing.JToggleButton gButton;
+    private javax.swing.JPanel gameEnd;
+    private javax.swing.JToggleButton hButton;
+    private javax.swing.JButton homeButton;
+    private javax.swing.JToggleButton iButton;
+    private javax.swing.JToggleButton jButton;
     private javax.swing.JDesktopPane jDesktopPane1;
-    private javax.swing.JToggleButton jToggleButton1;
-    private javax.swing.JToggleButton jToggleButton10;
-    private javax.swing.JToggleButton jToggleButton11;
-    private javax.swing.JToggleButton jToggleButton12;
-    private javax.swing.JToggleButton jToggleButton13;
-    private javax.swing.JToggleButton jToggleButton14;
-    private javax.swing.JToggleButton jToggleButton15;
-    private javax.swing.JToggleButton jToggleButton16;
-    private javax.swing.JToggleButton jToggleButton17;
-    private javax.swing.JToggleButton jToggleButton18;
-    private javax.swing.JToggleButton jToggleButton19;
-    private javax.swing.JToggleButton jToggleButton2;
-    private javax.swing.JToggleButton jToggleButton20;
-    private javax.swing.JToggleButton jToggleButton21;
-    private javax.swing.JToggleButton jToggleButton22;
-    private javax.swing.JToggleButton jToggleButton23;
-    private javax.swing.JToggleButton jToggleButton24;
-    private javax.swing.JToggleButton jToggleButton25;
-    private javax.swing.JToggleButton jToggleButton26;
-    private javax.swing.JToggleButton jToggleButton3;
-    private javax.swing.JToggleButton jToggleButton4;
-    private javax.swing.JToggleButton jToggleButton5;
-    private javax.swing.JToggleButton jToggleButton6;
-    private javax.swing.JToggleButton jToggleButton7;
-    private javax.swing.JToggleButton jToggleButton8;
-    private javax.swing.JToggleButton jToggleButton9;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JToggleButton kButton;
+    private javax.swing.JToggleButton lButton;
+    private javax.swing.JLabel leaderboard;
+    private javax.swing.JTextField letter1;
+    private javax.swing.JTextField letter10;
+    private javax.swing.JTextField letter11;
+    private javax.swing.JTextField letter12;
+    private javax.swing.JTextField letter13;
+    private javax.swing.JTextField letter14;
+    private javax.swing.JTextField letter15;
+    private javax.swing.JTextField letter2;
+    private javax.swing.JTextField letter3;
+    private javax.swing.JTextField letter4;
+    private javax.swing.JTextField letter5;
+    private javax.swing.JTextField letter6;
+    private javax.swing.JTextField letter7;
+    private javax.swing.JTextField letter8;
+    private javax.swing.JTextField letter9;
+    private javax.swing.JToggleButton mButton;
+    private javax.swing.JLabel mistakeCounter;
+    private javax.swing.JToggleButton nButton;
+    private javax.swing.JToggleButton oButton;
+    private javax.swing.JToggleButton pButton;
+    private javax.swing.JToggleButton qButton;
+    private javax.swing.JToggleButton rButton;
+    private javax.swing.JToggleButton sButton;
+    private javax.swing.JTextArea stats;
+    private javax.swing.JButton submit;
+    private javax.swing.JToggleButton tButton;
+    private javax.swing.JToggleButton uButton;
+    private javax.swing.JLabel username;
+    private javax.swing.JTextPane usernameInput;
+    private javax.swing.JToggleButton vButton;
+    private javax.swing.JToggleButton wButton;
+    private javax.swing.JToggleButton xButton;
+    private javax.swing.JToggleButton yButton;
+    private javax.swing.JToggleButton zButton;
     // End of variables declaration//GEN-END:variables
 }

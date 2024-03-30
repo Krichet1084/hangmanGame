@@ -3,17 +3,32 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package my.scoreMenu;
-
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Stream;
+import my.homeScreen.*;
 /**
  *
  * @author kshar1
  */
 public class scoreMenu extends javax.swing.JFrame {
-
+    
+    private String[][] info;
     /**
      * Creates new form scoreMenu
      */
     public scoreMenu() {
+        sortedScore();
         initComponents();
     }
 
@@ -26,51 +41,152 @@ public class scoreMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        playerNames = new javax.swing.JList<>();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        playerScores = new javax.swing.JList<>();
+        homeButton = new javax.swing.JButton();
+        resetButton = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        scoreBoard = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        playerNames.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Player1", "Player2", "Player3" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        homeButton.setText("Home");
+        homeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                homeButtonActionPerformed(evt);
+            }
         });
-        jScrollPane1.setViewportView(playerNames);
 
-        playerScores.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "10", "7", "4" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        resetButton.setText("Reset");
+        resetButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetButtonActionPerformed(evt);
+            }
         });
-        jScrollPane2.setViewportView(playerScores);
+
+        scoreBoard.setModel(new javax.swing.table.DefaultTableModel(
+            info,
+            new String [] {
+                "Usernames", "Mistakes", "Guesses", "Unique Letters", "Total Letters"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(scoreBoard);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(107, 107, 107)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(197, Short.MAX_VALUE))
+                .addGap(15, 15, 15)
+                .addComponent(resetButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(homeButton)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(53, 53, 53)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(101, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(homeButton)
+                    .addComponent(resetButton))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void homeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeButtonActionPerformed
+        scoreMenu.this.dispose();
+    }//GEN-LAST:event_homeButtonActionPerformed
+
+    private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
+        try{
+            FileWriter myWriter = new FileWriter("src/my/scoreMenu/leaderboard.txt", false);
+            myWriter.write("");
+            myWriter.close();
+        }
+        catch(IOException e){
+            System.out.println(e);
+        }
+    }//GEN-LAST:event_resetButtonActionPerformed
+
+    private void scoreValues(){
+        String entry=null;
+        int numOfLines =0;
+        BufferedReader reader;
+        try {
+            reader = new BufferedReader(new FileReader("src/my/scoreMenu/leaderboard.txt"));
+            while(reader.readLine() != null)
+            numOfLines++;
+        } catch (FileNotFoundException e) {
+            System.out.println(e);
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+        if(numOfLines!=0){
+            info = new String[numOfLines-1][5];
+            for(int x=0; x<numOfLines; x++){
+                try (Stream<String> lines = Files.lines(Paths.get("src/my/scoreMenu/leaderboard.txt"))) {
+                    entry=lines.skip(x).findFirst().get();
+                    if(x!=0){
+                        info[x-1]=entry.split(" ");
+                    }
+                }
+                catch(IOException e){
+                    System.out.println(e);
+                }
+            }
+        }
+        
+    }
+    
+    private void sortedScore(){
+        scoreValues();
+        //REST OF METHOD IS CHAT GPT CODE
+        try{
+            Comparator<String[]> comparator = (row1, row2) -> {
+                // Convert 'b' and 'd' values to doubles
+                double b1 = Double.parseDouble(row1[2]);
+                double d1 = Double.parseDouble(row1[4]);
+                double b2 = Double.parseDouble(row2[2]);
+                double d2 = Double.parseDouble(row2[4]);
+
+                // Calculate the ratio of b/d for each row
+                double ratio1 = b1 / d1;
+                double ratio2 = b2 / d2;
+
+                // Compare the ratios
+                return Double.compare(ratio1, ratio2);
+            };
+
+            // Sort the array based on the ratio of b/d
+
+                Arrays.sort(info, comparator);
+                
+                // Replace the original array with its sorted version
+                System.arraycopy(info, 0, info, 0, info.length);
+        }
+        catch(NullPointerException e){
+            System.out.println(e);
+        } 
+    }
     /**
      * @param args the command line arguments
      */
@@ -100,11 +216,14 @@ public class scoreMenu extends javax.swing.JFrame {
 
         /* Create and display the form */
     }
+    
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JList<String> playerNames;
-    private javax.swing.JList<String> playerScores;
+    private javax.swing.JButton homeButton;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JButton resetButton;
+    private javax.swing.JTable scoreBoard;
     // End of variables declaration//GEN-END:variables
 }
