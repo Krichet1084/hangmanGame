@@ -3,6 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package my.homeScreen;
+import java.awt.Button;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import my.setup.*;
 import my.scoreMenu.*;
 import my.howTo.*;
@@ -16,9 +20,15 @@ public class homeScreen extends javax.swing.JFrame {
     /**
      * Creates new form homeScreen
      */
+    Color quitBackground = new Color(35,35,35);
+    
     public homeScreen() {
         initComponents();
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        confirmQuit.setBackground(quitBackground);
         confirmQuit.setVisible(false);
+        this.getContentPane().setBackground(Color.darkGray);
         
     }
 
@@ -38,11 +48,16 @@ public class homeScreen extends javax.swing.JFrame {
         confirmQuit = new javax.swing.JDesktopPane();
         noButton = new javax.swing.JButton();
         confirmButton = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        quitText = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setAutoRequestFocus(false);
+        setBackground(java.awt.Color.yellow);
+        setForeground(java.awt.Color.yellow);
         setResizable(false);
 
+        guideButton.setBackground(java.awt.Color.black);
+        guideButton.setForeground(java.awt.Color.white);
         guideButton.setText("Guide");
         guideButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -50,6 +65,8 @@ public class homeScreen extends javax.swing.JFrame {
             }
         });
 
+        playButon.setBackground(java.awt.Color.black);
+        playButon.setForeground(java.awt.Color.white);
         playButon.setText("Play");
         playButon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -57,6 +74,8 @@ public class homeScreen extends javax.swing.JFrame {
             }
         });
 
+        quitButton.setBackground(java.awt.Color.black);
+        quitButton.setForeground(java.awt.Color.white);
         quitButton.setText("Quit");
         quitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -64,6 +83,8 @@ public class homeScreen extends javax.swing.JFrame {
             }
         });
 
+        scoreButton.setBackground(java.awt.Color.black);
+        scoreButton.setForeground(java.awt.Color.white);
         scoreButton.setText("High Score");
         scoreButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -71,6 +92,12 @@ public class homeScreen extends javax.swing.JFrame {
             }
         });
 
+        confirmQuit.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.highlight"));
+        confirmQuit.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        confirmQuit.setForeground(java.awt.Color.white);
+
+        noButton.setBackground(java.awt.Color.black);
+        noButton.setForeground(java.awt.Color.white);
         noButton.setText("No");
         noButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,6 +105,8 @@ public class homeScreen extends javax.swing.JFrame {
             }
         });
 
+        confirmButton.setBackground(java.awt.Color.black);
+        confirmButton.setForeground(java.awt.Color.white);
         confirmButton.setText("Quit");
         confirmButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -85,11 +114,12 @@ public class homeScreen extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Would you like to quit?");
+        quitText.setForeground(java.awt.Color.white);
+        quitText.setText("Would you like to quit?");
 
         confirmQuit.setLayer(noButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
         confirmQuit.setLayer(confirmButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        confirmQuit.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        confirmQuit.setLayer(quitText, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout confirmQuitLayout = new javax.swing.GroupLayout(confirmQuit);
         confirmQuit.setLayout(confirmQuitLayout);
@@ -104,18 +134,19 @@ public class homeScreen extends javax.swing.JFrame {
                         .addComponent(noButton)
                         .addGap(8, 8, 8))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, confirmQuitLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(quitText)
                         .addGap(35, 35, 35))))
         );
         confirmQuitLayout.setVerticalGroup(
             confirmQuitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(confirmQuitLayout.createSequentialGroup()
-                .addComponent(jLabel1)
+                .addContainerGap()
+                .addComponent(quitText)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(confirmQuitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(confirmButton)
                     .addComponent(noButton))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -145,7 +176,7 @@ public class homeScreen extends javax.swing.JFrame {
                     .addComponent(playButon)
                     .addComponent(guideButton)
                     .addComponent(scoreButton))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(confirmQuit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(quitButton)
@@ -217,10 +248,10 @@ public class homeScreen extends javax.swing.JFrame {
     private javax.swing.JButton confirmButton;
     private javax.swing.JDesktopPane confirmQuit;
     private javax.swing.JButton guideButton;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JButton noButton;
     private javax.swing.JButton playButon;
     private javax.swing.JButton quitButton;
+    private javax.swing.JLabel quitText;
     private javax.swing.JButton scoreButton;
     // End of variables declaration//GEN-END:variables
 }

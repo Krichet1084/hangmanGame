@@ -3,6 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package my.setup;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import javax.swing.plaf.basic.BasicArrowButton;
+import javax.swing.plaf.basic.BasicSpinnerUI;
 import my.homeScreen.*;
 import my.game.*;
 
@@ -17,6 +23,12 @@ public class setup extends javax.swing.JFrame {
      */
     public setup() {
         initComponents();
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        this.getContentPane().setBackground(Color.darkGray);
+        length.getEditor().getComponent(0).setForeground(Color.white);
+        length.getEditor().getComponent(0).setBackground(Color.black);
+        length.setUI(new CustomSpinnerUI());
     }
 
     /**
@@ -34,7 +46,10 @@ public class setup extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
+        homeButton.setBackground(java.awt.Color.black);
+        homeButton.setForeground(java.awt.Color.white);
         homeButton.setText("Home");
         homeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -42,6 +57,8 @@ public class setup extends javax.swing.JFrame {
             }
         });
 
+        playButton.setBackground(java.awt.Color.black);
+        playButton.setForeground(java.awt.Color.white);
         playButton.setText("Play");
         playButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -49,8 +66,12 @@ public class setup extends javax.swing.JFrame {
             }
         });
 
-        length.setModel(new javax.swing.SpinnerNumberModel(4, 4, 17, 1));
+        length.setModel(new javax.swing.SpinnerNumberModel(4, 4, 13, 1));
+        length.setToolTipText("");
+        length.setBorder(null);
+        length.setOpaque(true);
 
+        jLabel1.setForeground(java.awt.Color.white);
         jLabel1.setText("Word length");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -82,23 +103,41 @@ public class setup extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(playButton)
                     .addComponent(homeButton))
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public class CustomSpinnerUI extends BasicSpinnerUI {
+    @Override
+    protected Component createNextButton() {
+        BasicArrowButton button = (BasicArrowButton) super.createNextButton();
+        button.setBackground(Color.black); // Set background color of the next button
+        button.setForeground(Color.white); // Set foreground color of the next button
+        return button;
+    }
+
+    @Override
+    protected Component createPreviousButton() {
+        BasicArrowButton button = (BasicArrowButton) super.createPreviousButton();
+        button.setBackground(Color.black); // Set background color of the previous button
+        button.setForeground(Color.white); // Set foreground color of the previous button
+        return button;
+    }
+}
+    
     private void homeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeButtonActionPerformed
+        setup.this.dispose();
         homeScreen home = new homeScreen();
         home.setVisible(true);
-        setup.this.dispose();
     }//GEN-LAST:event_homeButtonActionPerformed
 
     private void playButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playButtonActionPerformed
         game hangman = new game((Integer)length.getValue());
         hangman.setVisible(true);
         hangman.letterSetup();
-        setup.this.dispose();
+        setup.this.dispose();           
     }//GEN-LAST:event_playButtonActionPerformed
 
     /**

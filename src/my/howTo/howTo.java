@@ -4,6 +4,9 @@
  */
 package my.howTo;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -17,6 +20,9 @@ public class howTo extends javax.swing.JFrame {
      * Creates new form howTo
      */
     public howTo() {
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        this.getContentPane().setBackground(Color.darkGray);
         initComponents();
     }
 
@@ -38,6 +44,8 @@ public class howTo extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
+        homeButton.setBackground(java.awt.Color.black);
+        homeButton.setForeground(java.awt.Color.white);
         homeButton.setText("Home");
         homeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -45,6 +53,8 @@ public class howTo extends javax.swing.JFrame {
             }
         });
 
+        onLaunch.setBackground(java.awt.Color.black);
+        onLaunch.setForeground(java.awt.Color.white);
         onLaunch.setText("Open On Next Launch");
         onLaunch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -52,11 +62,20 @@ public class howTo extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setForeground(java.awt.Color.white);
         jLabel1.setText("How To Play?");
 
+        jScrollPane1.setBorder(null);
+
+        jTextArea1.setEditable(false);
+        jTextArea1.setBackground(java.awt.Color.darkGray);
         jTextArea1.setColumns(20);
+        jTextArea1.setForeground(java.awt.Color.white);
         jTextArea1.setRows(5);
-        jTextArea1.setText("1) Select the length of the word you will guess.\n2) Guess letters in your word. \n    Each letter can only be guessed once.\n    All instances of a letter will be shown.\n    If a letter is not in the word the hangman will gain another detail.\n3) If you reach six mistakes you lose.\n4) If you complete the word before you lose youcan enter the leaderboard by \n     entering your username and clicking submit.\n\nNOTE: Words are taken from a list, some of these words may be in a different language\n            such as French or Latin.");
+        jTextArea1.setText("1) Select the length of the word you will guess.\n2) Guess letters in your word. \n    Each letter can only be guessed once.\n    If you don't think a letter is present in the word, right click it to dissable the button\n     you may always right click it again to re-enable the button\n    All instances of a letter will be shown.\n    If a letter is not in the word the hangman will gain another detail.\n3) If you reach six mistakes you lose.\n4) If you complete the word before you lose youcan enter the leaderboard by \n     entering your username and clicking submit.\n");
+        jTextArea1.setBorder(null);
+        jTextArea1.setCaretColor(java.awt.Color.darkGray);
+        jTextArea1.setSelectedTextColor(java.awt.Color.white);
         jScrollPane1.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -83,8 +102,8 @@ public class howTo extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(homeButton)
                     .addComponent(onLaunch))

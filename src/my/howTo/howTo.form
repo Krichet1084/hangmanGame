@@ -49,8 +49,8 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jScrollPane1" min="-2" pref="212" max="-2" attributes="0"/>
-              <EmptySpace pref="50" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" pref="182" max="-2" attributes="0"/>
+              <EmptySpace pref="80" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="homeButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="onLaunch" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -63,6 +63,12 @@
   <SubComponents>
     <Component class="javax.swing.JButton" name="homeButton">
       <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="0" green="0" id="black" palette="1" red="0" type="palette"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Home"/>
       </Properties>
       <Events>
@@ -71,6 +77,12 @@
     </Component>
     <Component class="javax.swing.JButton" name="onLaunch">
       <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="0" green="0" id="black" palette="1" red="0" type="palette"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Open On Next Launch"/>
       </Properties>
       <Events>
@@ -79,10 +91,18 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="How To Play?"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+      <Properties>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="null"/>
+        </Property>
+      </Properties>
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
       </AuxValues>
@@ -91,9 +111,25 @@
       <SubComponents>
         <Component class="javax.swing.JTextArea" name="jTextArea1">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
+            </Property>
             <Property name="columns" type="int" value="20"/>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
+            </Property>
             <Property name="rows" type="int" value="5"/>
-            <Property name="text" type="java.lang.String" value="1) Select the length of the word you will guess.&#xa;2) Guess letters in your word. &#xa;    Each letter can only be guessed once.&#xa;    All instances of a letter will be shown.&#xa;    If a letter is not in the word the hangman will gain another detail.&#xa;3) If you reach six mistakes you lose.&#xa;4) If you complete the word before you lose youcan enter the leaderboard by &#xa;     entering your username and clicking submit.&#xa;&#xa;NOTE: Words are taken from a list, some of these words may be in a different language&#xa;            such as French or Latin."/>
+            <Property name="text" type="java.lang.String" value="1) Select the length of the word you will guess.&#xa;2) Guess letters in your word. &#xa;    Each letter can only be guessed once.&#xa;    If you don&apos;t think a letter is present in the word, right click it to dissable the button&#xa;     you may always right click it again to re-enable the button&#xa;    All instances of a letter will be shown.&#xa;    If a letter is not in the word the hangman will gain another detail.&#xa;3) If you reach six mistakes you lose.&#xa;4) If you complete the word before you lose youcan enter the leaderboard by &#xa;     entering your username and clicking submit.&#xa;"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="null"/>
+            </Property>
+            <Property name="caretColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
+            </Property>
+            <Property name="selectedTextColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
+            </Property>
           </Properties>
         </Component>
       </SubComponents>

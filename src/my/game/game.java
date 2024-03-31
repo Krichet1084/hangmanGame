@@ -3,11 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package my.game;
+import java.awt.Color;
 import my.setup.*;
 import my.homeScreen.*;
 import static java.awt.Color.red;
 import static java.awt.Color.green;
+import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -42,24 +45,28 @@ public class game extends javax.swing.JFrame {
     
     public game(int wL) {
         initComponents();
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         wordLength=wL;
         JToggleButton[] letterButtons01={aButton, bButton, cButton, dButton, eButton, fButton, gButton,
                                             hButton, iButton, jButton, kButton, lButton, mButton, nButton,
                                             oButton, pButton, qButton, rButton, sButton, tButton, uButton,
                                             vButton, wButton, xButton, yButton, zButton};
         JTextField[] letters01={letter1, letter2, letter3, letter4, letter5, letter6, letter7, letter8, 
-                                letter9, letter10, letter11, letter12, letter13, letter14, letter15,
-                                letter16, letter17};
+                                letter9, letter10, letter11, letter12, letter13};
         
-        for(int x=0; x<=16;x++)
+        for(int x=0; x<=12;x++)
             letters[x]=letters01[x];
         for(int x=0; x<=25;x++)
             letterButtons[x]=letterButtons01[x];
         for(int x=0;x<=25;x++)
             canEnable[x]=true;
         hangedMan.setIcon(images[mistakeCount]);
+        endScreen.setBackground(Color.darkGray);
+        gameEnd.setBackground(Color.darkGray);
         endScreen.setVisible(false);
         gameEnd.setVisible(false);
+        this.getContentPane().setBackground(Color.darkGray);
         wordSelect();
         wordArray();
     }
@@ -115,8 +122,6 @@ public class game extends javax.swing.JFrame {
         mistakeCounter = new javax.swing.JLabel();
         letter12 = new javax.swing.JTextField();
         letter13 = new javax.swing.JTextField();
-        letter14 = new javax.swing.JTextField();
-        letter15 = new javax.swing.JTextField();
         gameEnd = new javax.swing.JPanel();
         leaderboard = new javax.swing.JLabel();
         username = new javax.swing.JLabel();
@@ -127,20 +132,26 @@ public class game extends javax.swing.JFrame {
         stats = new javax.swing.JTextArea();
         endText = new javax.swing.JLabel();
         homeButton = new javax.swing.JButton();
-        letter16 = new javax.swing.JTextField();
-        letter17 = new javax.swing.JTextField();
         hangedMan = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        back.setBackground(java.awt.Color.black);
+        back.setForeground(java.awt.Color.white);
         back.setText("Play Again");
         back.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backActionPerformed(evt);
             }
         });
+        getContentPane().add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 360, -1, -1));
 
+        jDesktopPane1.setBackground(new java.awt.Color(70, 70, 70));
+
+        jButton.setBackground(java.awt.Color.black);
+        jButton.setForeground(java.awt.Color.white);
         jButton.setText("J");
         jButton.setToolTipText("");
         jButton.setBorder(null);
@@ -158,6 +169,8 @@ public class game extends javax.swing.JFrame {
             }
         });
 
+        kButton.setBackground(java.awt.Color.black);
+        kButton.setForeground(java.awt.Color.white);
         kButton.setText("K");
         kButton.setToolTipText("");
         kButton.setBorder(null);
@@ -175,6 +188,8 @@ public class game extends javax.swing.JFrame {
             }
         });
 
+        fButton.setBackground(java.awt.Color.black);
+        fButton.setForeground(java.awt.Color.white);
         fButton.setText("F");
         fButton.setToolTipText("");
         fButton.setBorder(null);
@@ -192,6 +207,8 @@ public class game extends javax.swing.JFrame {
             }
         });
 
+        hButton.setBackground(java.awt.Color.black);
+        hButton.setForeground(java.awt.Color.white);
         hButton.setText("H");
         hButton.setToolTipText("");
         hButton.setBorder(null);
@@ -209,6 +226,8 @@ public class game extends javax.swing.JFrame {
             }
         });
 
+        bButton.setBackground(java.awt.Color.black);
+        bButton.setForeground(java.awt.Color.white);
         bButton.setText("B");
         bButton.setToolTipText("");
         bButton.setBorder(null);
@@ -226,6 +245,8 @@ public class game extends javax.swing.JFrame {
             }
         });
 
+        cButton.setBackground(java.awt.Color.black);
+        cButton.setForeground(java.awt.Color.white);
         cButton.setText("C");
         cButton.setToolTipText("");
         cButton.setBorder(null);
@@ -243,6 +264,8 @@ public class game extends javax.swing.JFrame {
             }
         });
 
+        rButton.setBackground(java.awt.Color.black);
+        rButton.setForeground(java.awt.Color.white);
         rButton.setText("R");
         rButton.setToolTipText("");
         rButton.setBorder(null);
@@ -260,6 +283,8 @@ public class game extends javax.swing.JFrame {
             }
         });
 
+        eButton.setBackground(java.awt.Color.black);
+        eButton.setForeground(java.awt.Color.white);
         eButton.setText("E");
         eButton.setToolTipText("");
         eButton.setBorder(null);
@@ -277,6 +302,8 @@ public class game extends javax.swing.JFrame {
             }
         });
 
+        mButton.setBackground(java.awt.Color.black);
+        mButton.setForeground(java.awt.Color.white);
         mButton.setText("M");
         mButton.setToolTipText("");
         mButton.setBorder(null);
@@ -294,6 +321,8 @@ public class game extends javax.swing.JFrame {
             }
         });
 
+        uButton.setBackground(java.awt.Color.black);
+        uButton.setForeground(java.awt.Color.white);
         uButton.setText("U");
         uButton.setToolTipText("");
         uButton.setBorder(null);
@@ -311,6 +340,8 @@ public class game extends javax.swing.JFrame {
             }
         });
 
+        zButton.setBackground(java.awt.Color.black);
+        zButton.setForeground(java.awt.Color.white);
         zButton.setText("Z");
         zButton.setToolTipText("");
         zButton.setBorder(null);
@@ -328,6 +359,8 @@ public class game extends javax.swing.JFrame {
             }
         });
 
+        gButton.setBackground(java.awt.Color.black);
+        gButton.setForeground(java.awt.Color.white);
         gButton.setText("G");
         gButton.setToolTipText("");
         gButton.setBorder(null);
@@ -345,6 +378,8 @@ public class game extends javax.swing.JFrame {
             }
         });
 
+        oButton.setBackground(java.awt.Color.black);
+        oButton.setForeground(java.awt.Color.white);
         oButton.setText("O");
         oButton.setToolTipText("");
         oButton.setBorder(null);
@@ -362,6 +397,8 @@ public class game extends javax.swing.JFrame {
             }
         });
 
+        pButton.setBackground(java.awt.Color.black);
+        pButton.setForeground(java.awt.Color.white);
         pButton.setText("P");
         pButton.setToolTipText("");
         pButton.setBorder(null);
@@ -379,6 +416,8 @@ public class game extends javax.swing.JFrame {
             }
         });
 
+        iButton.setBackground(java.awt.Color.black);
+        iButton.setForeground(java.awt.Color.white);
         iButton.setText("I");
         iButton.setToolTipText("");
         iButton.setBorder(null);
@@ -396,6 +435,8 @@ public class game extends javax.swing.JFrame {
             }
         });
 
+        qButton.setBackground(java.awt.Color.black);
+        qButton.setForeground(java.awt.Color.white);
         qButton.setText("Q");
         qButton.setToolTipText("");
         qButton.setBorder(null);
@@ -413,6 +454,8 @@ public class game extends javax.swing.JFrame {
             }
         });
 
+        lButton.setBackground(java.awt.Color.black);
+        lButton.setForeground(java.awt.Color.white);
         lButton.setText("L");
         lButton.setToolTipText("");
         lButton.setBorder(null);
@@ -430,6 +473,8 @@ public class game extends javax.swing.JFrame {
             }
         });
 
+        aButton.setBackground(java.awt.Color.black);
+        aButton.setForeground(java.awt.Color.white);
         aButton.setText("A");
         aButton.setToolTipText("");
         aButton.setBorder(null);
@@ -447,6 +492,8 @@ public class game extends javax.swing.JFrame {
             }
         });
 
+        nButton.setBackground(java.awt.Color.black);
+        nButton.setForeground(java.awt.Color.white);
         nButton.setText("N");
         nButton.setToolTipText("");
         nButton.setBorder(null);
@@ -464,6 +511,8 @@ public class game extends javax.swing.JFrame {
             }
         });
 
+        wButton.setBackground(java.awt.Color.black);
+        wButton.setForeground(java.awt.Color.white);
         wButton.setText("W");
         wButton.setToolTipText("");
         wButton.setBorder(null);
@@ -481,6 +530,8 @@ public class game extends javax.swing.JFrame {
             }
         });
 
+        dButton.setBackground(java.awt.Color.black);
+        dButton.setForeground(java.awt.Color.white);
         dButton.setText("D");
         dButton.setToolTipText("");
         dButton.setBorder(null);
@@ -498,6 +549,8 @@ public class game extends javax.swing.JFrame {
             }
         });
 
+        xButton.setBackground(java.awt.Color.black);
+        xButton.setForeground(java.awt.Color.white);
         xButton.setText("X");
         xButton.setToolTipText("");
         xButton.setBorder(null);
@@ -515,6 +568,8 @@ public class game extends javax.swing.JFrame {
             }
         });
 
+        tButton.setBackground(java.awt.Color.black);
+        tButton.setForeground(java.awt.Color.white);
         tButton.setText("T");
         tButton.setToolTipText("");
         tButton.setBorder(null);
@@ -532,6 +587,8 @@ public class game extends javax.swing.JFrame {
             }
         });
 
+        yButton.setBackground(java.awt.Color.black);
+        yButton.setForeground(java.awt.Color.white);
         yButton.setText("Y");
         yButton.setToolTipText("");
         yButton.setBorder(null);
@@ -549,6 +606,8 @@ public class game extends javax.swing.JFrame {
             }
         });
 
+        vButton.setBackground(java.awt.Color.black);
+        vButton.setForeground(java.awt.Color.white);
         vButton.setText("V");
         vButton.setToolTipText("");
         vButton.setBorder(null);
@@ -566,6 +625,8 @@ public class game extends javax.swing.JFrame {
             }
         });
 
+        sButton.setBackground(java.awt.Color.black);
+        sButton.setForeground(java.awt.Color.white);
         sButton.setText("S");
         sButton.setToolTipText("");
         sButton.setBorder(null);
@@ -712,44 +773,120 @@ public class game extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        getContentPane().add(jDesktopPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 255, -1, -1));
+
         letter1.setEditable(false);
+        letter1.setBackground(java.awt.Color.gray);
+        letter1.setForeground(java.awt.Color.white);
+        letter1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        letter1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        getContentPane().add(letter1, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 213, 30, 30));
 
         letter2.setEditable(false);
+        letter2.setBackground(java.awt.Color.gray);
+        letter2.setForeground(java.awt.Color.white);
+        letter2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        letter2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        getContentPane().add(letter2, new org.netbeans.lib.awtextra.AbsoluteConstraints(91, 213, 30, 30));
 
         letter3.setEditable(false);
+        letter3.setBackground(java.awt.Color.gray);
+        letter3.setForeground(java.awt.Color.white);
+        letter3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        letter3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        getContentPane().add(letter3, new org.netbeans.lib.awtextra.AbsoluteConstraints(127, 213, 30, 30));
 
         letter4.setEditable(false);
+        letter4.setBackground(java.awt.Color.gray);
+        letter4.setForeground(java.awt.Color.white);
+        letter4.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        letter4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        getContentPane().add(letter4, new org.netbeans.lib.awtextra.AbsoluteConstraints(163, 213, 30, 30));
 
         letter5.setEditable(false);
+        letter5.setBackground(java.awt.Color.gray);
+        letter5.setForeground(java.awt.Color.white);
+        letter5.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        letter5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        getContentPane().add(letter5, new org.netbeans.lib.awtextra.AbsoluteConstraints(199, 213, 30, 30));
 
         letter6.setEditable(false);
+        letter6.setBackground(java.awt.Color.gray);
+        letter6.setForeground(java.awt.Color.white);
+        letter6.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        letter6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        getContentPane().add(letter6, new org.netbeans.lib.awtextra.AbsoluteConstraints(235, 213, 30, 30));
 
         letter7.setEditable(false);
+        letter7.setBackground(java.awt.Color.gray);
+        letter7.setForeground(java.awt.Color.white);
+        letter7.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        letter7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        getContentPane().add(letter7, new org.netbeans.lib.awtextra.AbsoluteConstraints(271, 213, 30, 30));
 
         letter8.setEditable(false);
+        letter8.setBackground(java.awt.Color.gray);
+        letter8.setForeground(java.awt.Color.white);
+        letter8.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        letter8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        getContentPane().add(letter8, new org.netbeans.lib.awtextra.AbsoluteConstraints(307, 213, 30, 30));
 
         letter9.setEditable(false);
+        letter9.setBackground(java.awt.Color.gray);
+        letter9.setForeground(java.awt.Color.white);
+        letter9.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        letter9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        getContentPane().add(letter9, new org.netbeans.lib.awtextra.AbsoluteConstraints(343, 213, 30, 30));
 
         letter10.setEditable(false);
+        letter10.setBackground(java.awt.Color.gray);
+        letter10.setForeground(java.awt.Color.white);
+        letter10.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        letter10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        getContentPane().add(letter10, new org.netbeans.lib.awtextra.AbsoluteConstraints(379, 213, 30, 30));
 
         letter11.setEditable(false);
+        letter11.setBackground(java.awt.Color.gray);
+        letter11.setForeground(java.awt.Color.white);
+        letter11.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        letter11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        getContentPane().add(letter11, new org.netbeans.lib.awtextra.AbsoluteConstraints(415, 213, 30, 30));
 
+        mistakeCounter.setForeground(java.awt.Color.white);
         mistakeCounter.setText("Mistakes: 0");
+        getContentPane().add(mistakeCounter, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         letter12.setEditable(false);
+        letter12.setBackground(java.awt.Color.gray);
+        letter12.setForeground(java.awt.Color.white);
+        letter12.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        letter12.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        getContentPane().add(letter12, new org.netbeans.lib.awtextra.AbsoluteConstraints(451, 213, 30, 30));
 
         letter13.setEditable(false);
+        letter13.setBackground(java.awt.Color.gray);
+        letter13.setForeground(java.awt.Color.white);
+        letter13.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        letter13.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        getContentPane().add(letter13, new org.netbeans.lib.awtextra.AbsoluteConstraints(487, 213, 30, 30));
 
-        letter14.setEditable(false);
-
-        letter15.setEditable(false);
-
+        leaderboard.setForeground(java.awt.Color.white);
         leaderboard.setText("Leaderboard");
 
+        username.setForeground(java.awt.Color.white);
         username.setText("Username: ");
 
+        jScrollPane2.setBorder(null);
+        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+
+        usernameInput.setBackground(java.awt.Color.gray);
+        usernameInput.setBorder(null);
+        usernameInput.setForeground(java.awt.Color.white);
         jScrollPane2.setViewportView(usernameInput);
 
+        submit.setBackground(java.awt.Color.black);
+        submit.setForeground(java.awt.Color.white);
         submit.setText("Submit");
         submit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -790,11 +927,15 @@ public class game extends javax.swing.JFrame {
                 .addGap(71, 71, 71))
         );
 
+        getContentPane().add(gameEnd, new org.netbeans.lib.awtextra.AbsoluteConstraints(486, 6, -1, 189));
+
         stats.setColumns(20);
+        stats.setForeground(java.awt.Color.white);
         stats.setRows(5);
         stats.setOpaque(false);
         stats.setPreferredSize(new java.awt.Dimension(175, 84));
 
+        endText.setForeground(java.awt.Color.white);
         endText.setText("jLabel1");
 
         javax.swing.GroupLayout endScreenLayout = new javax.swing.GroupLayout(endScreen);
@@ -819,130 +960,23 @@ public class game extends javax.swing.JFrame {
                 .addContainerGap(167, Short.MAX_VALUE))
             .addGroup(endScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, endScreenLayout.createSequentialGroup()
-                    .addContainerGap(38, Short.MAX_VALUE)
+                    .addContainerGap(49, Short.MAX_VALUE)
                     .addComponent(stats, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(39, Short.MAX_VALUE)))
+                    .addContainerGap(50, Short.MAX_VALUE)))
         );
 
+        getContentPane().add(endScreen, new org.netbeans.lib.awtextra.AbsoluteConstraints(297, 6, -1, -1));
+
+        homeButton.setBackground(java.awt.Color.black);
+        homeButton.setForeground(java.awt.Color.white);
         homeButton.setText("Home");
         homeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 homeButtonActionPerformed(evt);
             }
         });
-
-        letter16.setEditable(false);
-
-        letter17.setEditable(false);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(mistakeCounter))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(hangedMan, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                                        .addComponent(endScreen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(30, 30, 30)
-                                        .addComponent(back)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(homeButton))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(7, 7, 7)
-                                        .addComponent(letter13, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(5, 5, 5)
-                                        .addComponent(letter14, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(letter15, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(letter16, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(letter17, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(6, 6, 6)
-                                        .addComponent(gameEnd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(25, 25, 25)
-                                .addComponent(letter1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(letter2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(letter3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(letter4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(letter5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(letter6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(letter7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(letter8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(letter9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(letter10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(letter11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(letter12, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(65, 65, 65))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(mistakeCounter)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(endScreen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(gameEnd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(hangedMan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(letter3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(letter4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(letter5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(letter6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(letter7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(letter8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(letter9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(letter10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(letter11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(letter12, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(letter13, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(letter14, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(letter15, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(letter16, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(letter17, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(letter1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(letter2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(back)
-                        .addComponent(homeButton)))
-                .addGap(16, 16, 16))
-        );
+        getContentPane().add(homeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 360, -1, -1));
+        getContentPane().add(hangedMan, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 235, 195));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1286,7 +1320,7 @@ public class game extends javax.swing.JFrame {
         Random rand = new Random();
         do{
             try (Stream<String> lines = Files.lines(Paths.get("files/wordList.txt"))) {
-                word = (lines.skip(rand.nextInt(370105)).findFirst().get()).toLowerCase();
+                word = (lines.skip(rand.nextInt(20000)).findFirst().get()).toLowerCase();
             }
             catch(IOException e){
                 System.out.println(e);
@@ -1298,7 +1332,7 @@ public class game extends javax.swing.JFrame {
     }
     
     public void letterSetup(){
-        for(int x=16; x>=wordLength; x--){
+        for(int x=12; x>=wordLength; x--){
             letters[x].setVisible(false);
         }
     }
@@ -1323,7 +1357,7 @@ public class game extends javax.swing.JFrame {
         for(int x=0; x<wordLength; x++){
             if(wordToGuess[x].equals(guess)){
                 correctLetters++;
-                letters[x].setText(guess);
+                letters[x].setText(guess.toUpperCase());
                 letterButtons[letter].setBackground(green);
                 correct=true;
             }
@@ -1354,10 +1388,19 @@ public class game extends javax.swing.JFrame {
         }
         else{
             endText.setText("YOU LOST!!");
-            stats.setText("You failed a "+wordLength+" letter(s) long\nword with "+correctLetters+" letter correct\nand "+mistakeCount+" mistakes");
+            stats.setText("You failed a "+wordLength+" letter long\nword with "+correctLetters+" letter(s) correct\nand "+mistakeCount+" mistakes");
+            for(int x=0; x<wordLength;x++){
+                if(!letters[x].getText().toLowerCase().equals(wordToGuess[x])){
+                    letters[x].setText(wordToGuess[x].toUpperCase());
+                    letters[x].setForeground(red);
+                }
+                else
+                    letters[x].setForeground(green);
+            }    
         }
         endScreen.setVisible(true);
         gameEnd.setVisible(true);
+        
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1387,10 +1430,6 @@ public class game extends javax.swing.JFrame {
     private javax.swing.JTextField letter11;
     private javax.swing.JTextField letter12;
     private javax.swing.JTextField letter13;
-    private javax.swing.JTextField letter14;
-    private javax.swing.JTextField letter15;
-    private javax.swing.JTextField letter16;
-    private javax.swing.JTextField letter17;
     private javax.swing.JTextField letter2;
     private javax.swing.JTextField letter3;
     private javax.swing.JTextField letter4;
