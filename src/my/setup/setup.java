@@ -49,7 +49,7 @@ public class setup extends javax.swing.JFrame {
             }
         });
 
-        length.setModel(new javax.swing.SpinnerNumberModel(4, 4, 15, 1));
+        length.setModel(new javax.swing.SpinnerNumberModel(4, 4, 17, 1));
 
         jLabel1.setText("Word length");
 
