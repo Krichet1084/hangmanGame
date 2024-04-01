@@ -9,7 +9,6 @@ import my.homeScreen.*;
 import static java.awt.Color.red;
 import static java.awt.Color.green;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.FileWriter;
@@ -18,14 +17,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.*;
 import java.util.Random;
-import javax.swing.AbstractButton;
-import javax.swing.ButtonModel;
 import javax.swing.ImageIcon;
-import javax.swing.JComponent;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.SwingUtilities;
-import javax.swing.plaf.basic.BasicToggleButtonUI;
 
 /**
  *
