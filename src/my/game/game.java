@@ -9,6 +9,7 @@ import my.homeScreen.*;
 import static java.awt.Color.red;
 import static java.awt.Color.green;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.FileWriter;
@@ -17,10 +18,14 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.*;
 import java.util.Random;
+import javax.swing.AbstractButton;
+import javax.swing.ButtonModel;
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.SwingUtilities;
+import javax.swing.plaf.basic.BasicToggleButtonUI;
 
 /**
  *
@@ -1010,182 +1015,156 @@ public class game extends javax.swing.JFrame {
     private void qButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_qButtonMouseClicked
         if (SwingUtilities.isRightMouseButton(evt) && canEnable[16]) {
             qButton.setEnabled(!qButton.isEnabled());
-            return;
         }
     }//GEN-LAST:event_qButtonMouseClicked
 
     private void wButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_wButtonMouseClicked
         if (SwingUtilities.isRightMouseButton(evt) && canEnable[22]) {
             wButton.setEnabled(!wButton.isEnabled());
-            return;
         }
     }//GEN-LAST:event_wButtonMouseClicked
 
     private void eButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eButtonMouseClicked
         if (SwingUtilities.isRightMouseButton(evt) && canEnable[4]) {
             eButton.setEnabled(!eButton.isEnabled());
-            return;
         }
     }//GEN-LAST:event_eButtonMouseClicked
 
     private void rButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rButtonMouseClicked
         if (SwingUtilities.isRightMouseButton(evt) && canEnable[17]) {
             rButton.setEnabled(!rButton.isEnabled());
-            return;
         }
     }//GEN-LAST:event_rButtonMouseClicked
 
     private void tButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tButtonMouseClicked
-        if (SwingUtilities.isRightMouseButton(evt) && canEnable[20]) {
+        if (SwingUtilities.isRightMouseButton(evt) && canEnable[19]) {
             tButton.setEnabled(!tButton.isEnabled());
-            return;
         }
     }//GEN-LAST:event_tButtonMouseClicked
 
     private void yButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_yButtonMouseClicked
         if (SwingUtilities.isRightMouseButton(evt) && canEnable[24]) {
             yButton.setEnabled(!yButton.isEnabled());
-            return;
         }
     }//GEN-LAST:event_yButtonMouseClicked
 
     private void uButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_uButtonMouseClicked
         if (SwingUtilities.isRightMouseButton(evt) && canEnable[20]) {
             uButton.setEnabled(!uButton.isEnabled());
-            return;
         }
     }//GEN-LAST:event_uButtonMouseClicked
 
     private void iButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iButtonMouseClicked
         if (SwingUtilities.isRightMouseButton(evt) && canEnable[8]) {
             iButton.setEnabled(!iButton.isEnabled());
-            return;
         }
     }//GEN-LAST:event_iButtonMouseClicked
 
     private void oButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_oButtonMouseClicked
         if (SwingUtilities.isRightMouseButton(evt) && canEnable[14]) {
             oButton.setEnabled(!oButton.isEnabled());
-            return;
         }
     }//GEN-LAST:event_oButtonMouseClicked
 
     private void pButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pButtonMouseClicked
         if (SwingUtilities.isRightMouseButton(evt) && canEnable[15]) {
             pButton.setEnabled(!pButton.isEnabled());
-            return;
         }
     }//GEN-LAST:event_pButtonMouseClicked
 
     private void aButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_aButtonMouseClicked
         if (SwingUtilities.isRightMouseButton(evt) && canEnable[0]) {
             aButton.setEnabled(!aButton.isEnabled());
-            return;
         }
     }//GEN-LAST:event_aButtonMouseClicked
 
     private void sButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sButtonMouseClicked
         if (SwingUtilities.isRightMouseButton(evt) && canEnable[18]) {
             sButton.setEnabled(!sButton.isEnabled());
-            return;
         }
     }//GEN-LAST:event_sButtonMouseClicked
 
     private void dButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dButtonMouseClicked
         if (SwingUtilities.isRightMouseButton(evt) && canEnable[3]) {
             dButton.setEnabled(!dButton.isEnabled());
-            return;
         }
     }//GEN-LAST:event_dButtonMouseClicked
 
     private void fButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fButtonMouseClicked
         if (SwingUtilities.isRightMouseButton(evt) && canEnable[5]) {
             fButton.setEnabled(!fButton.isEnabled());
-            return;
         }
     }//GEN-LAST:event_fButtonMouseClicked
 
     private void gButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gButtonMouseClicked
         if (SwingUtilities.isRightMouseButton(evt) && canEnable[6]) {
             gButton.setEnabled(!gButton.isEnabled());
-            return;
         }
     }//GEN-LAST:event_gButtonMouseClicked
 
     private void hButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hButtonMouseClicked
         if (SwingUtilities.isRightMouseButton(evt) && canEnable[7]) {
             hButton.setEnabled(!hButton.isEnabled());
-            return;
         }
     }//GEN-LAST:event_hButtonMouseClicked
 
     private void jButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonMouseClicked
         if (SwingUtilities.isRightMouseButton(evt) && canEnable[9]) {
             jButton.setEnabled(!jButton.isEnabled());
-            return;
         }
     }//GEN-LAST:event_jButtonMouseClicked
 
     private void kButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kButtonMouseClicked
         if (SwingUtilities.isRightMouseButton(evt) && canEnable[10]) {
             kButton.setEnabled(!kButton.isEnabled());
-            return;
         }
     }//GEN-LAST:event_kButtonMouseClicked
 
     private void lButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lButtonMouseClicked
         if (SwingUtilities.isRightMouseButton(evt) && canEnable[11]) {
             lButton.setEnabled(!lButton.isEnabled());
-            return;
         }
     }//GEN-LAST:event_lButtonMouseClicked
 
     private void zButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_zButtonMouseClicked
         if (SwingUtilities.isRightMouseButton(evt) && canEnable[25]) {
             zButton.setEnabled(!zButton.isEnabled());
-            return;
         }
     }//GEN-LAST:event_zButtonMouseClicked
 
     private void xButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_xButtonMouseClicked
         if (SwingUtilities.isRightMouseButton(evt) && canEnable[23]) {
             xButton.setEnabled(!xButton.isEnabled());
-            return;
         }
     }//GEN-LAST:event_xButtonMouseClicked
 
     private void cButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cButtonMouseClicked
         if (SwingUtilities.isRightMouseButton(evt) && canEnable[2]) {
             cButton.setEnabled(!cButton.isEnabled());
-            return;
         }
     }//GEN-LAST:event_cButtonMouseClicked
 
     private void vButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_vButtonMouseClicked
         if (SwingUtilities.isRightMouseButton(evt) && canEnable[21]) {
             vButton.setEnabled(!vButton.isEnabled());
-            return;
         }
     }//GEN-LAST:event_vButtonMouseClicked
 
     private void bButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bButtonMouseClicked
         if (SwingUtilities.isRightMouseButton(evt) && canEnable[1]) {
             bButton.setEnabled(!bButton.isEnabled());
-            return;
         }
     }//GEN-LAST:event_bButtonMouseClicked
 
     private void nButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nButtonMouseClicked
         if (SwingUtilities.isRightMouseButton(evt) && canEnable[13]) {
             nButton.setEnabled(!nButton.isEnabled());
-            return;
         }
     }//GEN-LAST:event_nButtonMouseClicked
 
     private void mButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mButtonMouseClicked
         if (SwingUtilities.isRightMouseButton(evt) && canEnable[12]) {
             mButton.setEnabled(!mButton.isEnabled());
-            return;
         }
     }//GEN-LAST:event_mButtonMouseClicked
 
@@ -1359,6 +1338,8 @@ public class game extends javax.swing.JFrame {
                 correctLetters++;
                 letters[x].setText(guess.toUpperCase());
                 letterButtons[letter].setBackground(green);
+                letters[x].setForeground(green);
+                canEnable[letter]=false;
                 correct=true;
             }
         }
@@ -1366,15 +1347,16 @@ public class game extends javax.swing.JFrame {
         if(correct){
             if(correctLetters==wordLength)
                 wonGame(true);
-            return;
         }
-        canEnable[letter]=false;
-        letterButtons[letter].setBackground(red);
-        mistakeCount++;
-        mistakeCounter.setText("Mistakes: "+mistakeCount);
-        hangedMan.setIcon(images[mistakeCount]);
-        if(mistakeCount==6)
-            wonGame(false);
+        else{
+            mistakeCount++;
+            canEnable[letter]=false;
+            letterButtons[letter].setBackground(red);
+            mistakeCounter.setText("Mistakes: "+mistakeCount);
+            hangedMan.setIcon(images[mistakeCount]);
+            if(mistakeCount==6)
+                wonGame(false);
+        }
         
     }
     
@@ -1385,6 +1367,7 @@ public class game extends javax.swing.JFrame {
         if(win){
             endText.setText("YOU WON!!");
             stats.setText("You solved a "+wordLength+" letter long\nword with "+mistakeCount+" mistakes!");
+             
         }
         else{
             endText.setText("YOU LOST!!");
@@ -1393,16 +1376,16 @@ public class game extends javax.swing.JFrame {
                 if(!letters[x].getText().toLowerCase().equals(wordToGuess[x])){
                     letters[x].setText(wordToGuess[x].toUpperCase());
                     letters[x].setForeground(red);
-                }
-                else
-                    letters[x].setForeground(green);
+                };
             }    
         }
+        for(int x=0; x<=25;x++)
+            canEnable[x]=false;
         endScreen.setVisible(true);
         gameEnd.setVisible(true);
         
     }
-    
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton aButton;
     private javax.swing.JToggleButton bButton;
